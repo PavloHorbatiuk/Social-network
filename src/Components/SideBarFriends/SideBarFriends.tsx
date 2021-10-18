@@ -23,6 +23,7 @@ export const SideBarFriends = (props: SideBarFriendsType) => {
     return (
 
         <div>
+            pasha
             {bigFriends}
         </div>
     )
