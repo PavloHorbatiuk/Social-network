@@ -18,7 +18,6 @@ type MyPostsType = {
 
 export const MyPosts = (props: MyPostsType) => {
     let onClickForButton = () => {
-        alert("He guy ")
         let text=()=> newPostElement.current?.value
         alert(text())
     };
