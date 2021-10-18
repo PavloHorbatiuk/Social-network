@@ -1,5 +1,5 @@
 import React from 'react';
-import {SideBarType, stateType} from "../../Redux/State";
+import {stateType} from "../../Redux/State";
 import s from "../Dialogs/Dialogs.module.css";
 import {NavLink} from "react-router-dom";
 
@@ -17,15 +17,15 @@ const FriendsItem = (props: any) => {
 }
 
 
-
 export const SideBarFriends = (props: SideBarFriendsType) => {
-    const bigFriends =  props.state.SideBar.map(s=><FriendsItem name={s.name}id={s.id}/>)
+    const bigFriends = props.state.SideBar.map(s => <FriendsItem name={s.name} id={s.id}/>)
     return (
+        <nav className={s.sideBar}>
 
-        <div>
-            pasha
-            sveta
-            {bigFriends}
-        </div>
+            <div>
+                pasha
+                <NavLink to="/friends" activeClassName={s.active}>{bigFriends}</NavLink>
+            </div>
+        </nav>
     )
 }

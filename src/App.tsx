@@ -7,6 +7,7 @@ import style from './Content.module.css';
 import {BrowserRouter, Route} from "react-router-dom";
 import {stateType} from "./Redux/State";
 import { Dialogs } from './Components/Dialogs/Dialogs';
+import {SideBarFriends} from "./Components/SideBarFriends/SideBarFriends";
 
 export type AppPropsType = {
     state: stateType
@@ -18,7 +19,8 @@ function App(props: AppPropsType) {
         <BrowserRouter>
             <div className={s.appWrapper}>
                 <Header/>
-                <Navbar state={props.state} sideBar={props.state.SideBar}/>
+                <Navbar state={props.state} />
+                <SideBarFriends state={props.state}/>
                 <div className={style.content}>
                     <Route path='/dialogs' render={() => <Dialogs state={props.state.messagePage}/>}/>
                     <Route path='/profile' render={() => <Profile state={props.state.ProfilePage}/>}/>
