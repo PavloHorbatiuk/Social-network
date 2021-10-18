@@ -24,6 +24,7 @@ export const SideBarFriends = (props: SideBarFriendsType) => {
 
         <div>
             pasha
+            sveta
             {bigFriends}
         </div>
     )
