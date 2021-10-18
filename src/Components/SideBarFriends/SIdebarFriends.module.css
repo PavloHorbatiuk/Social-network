@@ -1,9 +1,9 @@
 .sideBar {
-    grid-area: h;
+    grid-area: n;
     background-color: rgb(240, 203, 155);
-    box-decoration-break: clone;
-    padding: 20px;
+    padding: 10px;
     padding-top: 20px;
+
 }
 
 .item a.active {
@@ -12,4 +12,8 @@
 
 .item a {
     color: rgb(17, 16, 16);
+}
+
+.content {
+    padding: 20px;
 }

@@ -1,8 +1,7 @@
-
 export type stateType = {
     messagePage: messagePageType,
     ProfilePage: ProfilePageType,
-    SideBar:Array<SideBarType>
+    SideBar: Array<SideBarType>
 }
 export type ProfilePageType = {
     MyPostsData: Array<MyPostsData>
@@ -61,10 +60,10 @@ let state: stateType = {
             {id: 6, message: 'Yo'},
         ],
     },
-    SideBar:[
-        {id:1,name: "Andru"},
-        {id:2,name: "Sasha"},
-        {id:3,name: "Sveta"},
+    SideBar: [
+        {id: 1, name: "Andru"},
+        {id: 2, name: "Sasha"},
+        {id: 3, name: "Sveta"},
     ]
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {stateType} from "../../Redux/State";
-import s from "../Dialogs/Dialogs.module.css";
+import s from "./SIdebarFriends.module.css";
 import {NavLink} from "react-router-dom";
 
 
@@ -22,8 +22,8 @@ export const SideBarFriends = (props: SideBarFriendsType) => {
     return (
         <nav className={s.sideBar}>
 
-            <div>
-                pasha
+            <div className={s.content}>
+                Friends online
                 <NavLink to="/friends" activeClassName={s.active}>{bigFriends}</NavLink>
             </div>
         </nav>

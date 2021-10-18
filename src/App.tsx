@@ -19,11 +19,14 @@ function App(props: AppPropsType) {
         <BrowserRouter>
             <div className={s.appWrapper}>
                 <Header/>
+                <div>
                 <Navbar state={props.state} />
                 <SideBarFriends state={props.state}/>
+                </div>
                 <div className={style.content}>
                     <Route path='/dialogs' render={() => <Dialogs state={props.state.messagePage}/>}/>
                     <Route path='/profile' render={() => <Profile state={props.state.ProfilePage}/>}/>
+
                 </div>
             </div>
         </BrowserRouter>
