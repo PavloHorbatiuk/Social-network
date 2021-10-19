@@ -1,7 +1,6 @@
 .nav {
     grid-area: n;
     background-color: rgb(240, 203, 155);
-    box-decoration-break:clone;
     padding: 20px;
     padding-top: 20px;
 }
