@@ -11,6 +11,9 @@
     grid-auto-rows: 1em;
     grid-gap: .2em;
 }
+.navbarwrappper{
+    background-color: rgb(238,217,175)
+}
 
 
 

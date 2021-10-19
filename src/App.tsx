@@ -19,7 +19,7 @@ function App(props: AppPropsType) {
         <BrowserRouter>
             <div className={s.appWrapper}>
                 <Header/>
-                <div>
+                <div className={s.navbarwrappper}>
                     <Navbar state={props.state}/>
                 <SideBarFriends state={props.state}/>
                 </div>

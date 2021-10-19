@@ -38,30 +38,37 @@ let state: stateType = {
 
     ProfilePage: {
         MyPostsData: [
-            {id: 1, message: 'Hello my friend', LikesCount: '12'},
-            {id: 2, message: 'This is my first post', LikesCount: '10'},
+            { id: 1, message: 'Hello my friend', LikesCount: '12' },
+            { id: 2, message: 'This is my first post', LikesCount: '10' },
         ]
     },
     messagePage: {
         DialogsData: [
-            {id: 1, name: 'Pall'},
-            {id: 2, name: 'Artur'},
-            {id: 3, name: 'Valeri'},
-            {id: 4, name: 'Nikol'},
-            {id: 5, name: 'Bond'},
-            {id: 6, name: 'Petrovich'},
+            { id: 1, name: 'Pall' },
+            { id: 2, name: 'Artur' },
+            { id: 3, name: 'Valeri' },
+            { id: 4, name: 'Nikol' },
+            { id: 5, name: 'Bond' },
+            { id: 6, name: 'Petrovich' },
         ],
         MessagesData: [
-            {id: 1, message: 'hello'},
-            {id: 2, message: 'How are you'},
-            {id: 3, message: 'Yo'},
+            { id: 1, message: 'hello' },
+            { id: 2, message: 'How are you' },
+            { id: 3, message: 'Yo' },
         ],
     },
     SideBar: [
-        {id: 1, name: "Andru"},
-        {id: 2, name: "Sasha"},
-        {id: 3, name: "Sveta"},
+        { id: 1, name: "Andru" },
+        { id: 2, name: "Sasha" },
+        { id: 3, name: "Sveta" },
     ]
+//  const addMessage =(postText: string)=>{
+//      const newPost ={
+//          id: new Data().getTime(),
+//          message: postText,
+//      }
+//      state.ProfilePage.MyPostsData.push(newPost)
 }
+
 
 export default state;
