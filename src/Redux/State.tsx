@@ -69,6 +69,15 @@ let state: stateType = {
 //      }
 //      state.ProfilePage.MyPostsData.push(newPost)
 }
+export const addPost =(postText:string)=>{
+    const newPost= {
+        id: new Date().getTime(),
+        message:postText,
+        likeCount:0
+    }
+    state.messagePage.MessagesData.push();
+}
+
 
 
 export default state;

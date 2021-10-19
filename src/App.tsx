@@ -9,8 +9,10 @@ import {stateType} from "./Redux/State";
 import {Dialogs} from './Components/Dialogs/Dialogs';
 import {SideBarFriends} from "./Components/SideBarFriends/SideBarFriends";
 
+
 export type AppPropsType = {
     state: stateType
+    addPost:(postText:string)=>void
 }
 
 function App(props: AppPropsType) {
@@ -24,8 +26,8 @@ function App(props: AppPropsType) {
                 <SideBarFriends state={props.state}/>
                 </div>
                 <div className={style.content}>
-                    <Route path='/dialogs' render={() => <Dialogs state={props.state.messagePage}/>}/>
-                    <Route path='/profile' render={() => <Profile state={props.state.ProfilePage}/>}/>
+                    <Route path='/dialogs' render={() => <Dialogs state={props.state.messagePage} />}/>
+                    <Route path='/profile' render={() => <Profile state={props.state.ProfilePage} />}/>
                 </div>
             </div>
         </BrowserRouter>
