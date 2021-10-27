@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import state from './Redux/State'
 import {BrowserRouter} from "react-router-dom";
 import {addPost} from "./Redux/State";
-addPost("You can do it")
+addPost('Pasha make post')
 
 ReactDOM.render(
     <BrowserRouter>

@@ -13,7 +13,7 @@ type MyPostsDataType = {
 
 type MyPostsType = {
     MyPostsData: Array<MyPostsDataType>
-
+    addPost:(text:string)=>void
 }
 
 export const MyPosts = (props: MyPostsType) => {

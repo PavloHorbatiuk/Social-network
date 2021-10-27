@@ -5,7 +5,7 @@ import {Profile} from './Components/Profile/Profile';
 import s from './App.module.css';
 import style from './Content.module.css';
 import {BrowserRouter, Route} from "react-router-dom";
-import {stateType} from "./Redux/State";
+import {addPost, stateType} from "./Redux/State";
 import {Dialogs} from './Components/Dialogs/Dialogs';
 import {SideBarFriends} from "./Components/SideBarFriends/SideBarFriends";
 
@@ -27,7 +27,7 @@ function App(props: AppPropsType) {
                 </div>
                 <div className={style.content}>
                     <Route path='/dialogs' render={() => <Dialogs state={props.state.messagePage} />}/>
-                    <Route path='/profile' render={() => <Profile state={props.state.ProfilePage} />}/>
+                    <Route path='/profile' render={() => <Profile state={props.state.ProfilePage} addPost={props.addPost} />}/>
                 </div>
             </div>
         </BrowserRouter>

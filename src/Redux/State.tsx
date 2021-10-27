@@ -1,3 +1,5 @@
+import {AppPropsType} from "../App";
+
 export type stateType = {
     messagePage: messagePageType,
     ProfilePage: ProfilePageType,
@@ -62,20 +64,14 @@ let state: stateType = {
         { id: 2, name: "Sasha" },
         { id: 3, name: "Sveta" },
     ]
-//  const addMessage =(postText: string)=>{
-//      const newPost ={
-//          id: new Data().getTime(),
-//          message: postText,
-//      }
-//      state.ProfilePage.MyPostsData.push(newPost)
 }
-export const addPost =(postText:string)=>{
+export let addPost =(postText:string)=>{
     const newPost= {
         id: new Date().getTime(),
         message:postText,
         likeCount:0
     }
-    state.messagePage.MessagesData.push();
+    state.messagePage.MessagesData.push(newPost);
 }
 
 
