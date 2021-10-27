@@ -1,8 +1,7 @@
 import React from 'react';
 import {Posts} from './Posts/Posts';
 import s from './MyPosts.module.css';
-import {listenerCount} from 'process';
-import {type} from 'os';
+
 
 type MyPostsDataType = {
     id: number,
@@ -13,13 +12,15 @@ type MyPostsDataType = {
 
 type MyPostsType = {
     MyPostsData: Array<MyPostsDataType>
-    addPost:(text:string)=>void
+    addPost: (text: string| undefined) => void
+
 }
 
 export const MyPosts = (props: MyPostsType) => {
-    let onClickForButton = () => {
-        let text=()=> newPostElement.current?.value
-        alert(text())
+
+    let addPost = () => {
+        let text = () => newPostElement.current?.value;
+       props.addPost(text())
     };
     let newPostElement = React.createRef<HTMLTextAreaElement>();
     let PostsElement = props.MyPostsData.map(m => <Posts message={m.message} LikesCount={m.LikesCount}/>)
@@ -30,12 +31,16 @@ export const MyPosts = (props: MyPostsType) => {
                 <textarea ref={newPostElement}></textarea>
             </div>
             <div>
-                <button onClick={onClickForButton}>add post</button>
+                <button onClick={addPost}>add post</button>
             </div>
         </div>
         <div className={s.posts}>
             {PostsElement}
         </div>
     </div>
+}
+
+function postText(postText: any) {
+    throw new Error('Function not implemented.');
 }
 

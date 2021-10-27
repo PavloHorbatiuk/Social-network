@@ -65,10 +65,10 @@ let state: stateType = {
         { id: 3, name: "Sveta" },
     ]
 }
-export let addPost =(postText:string)=>{
+export let addPost =(postText:string| undefined)=>{
     const newPost= {
         id: new Date().getTime(),
-        message:postText,
+        message:postText !=null? postText:"---",
         likeCount:0
     }
     state.messagePage.MessagesData.push(newPost);

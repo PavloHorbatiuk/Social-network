@@ -12,7 +12,7 @@ import {SideBarFriends} from "./Components/SideBarFriends/SideBarFriends";
 
 export type AppPropsType = {
     state: stateType
-    addPost:(postText:string)=>void
+    addPost:(postText:string|undefined)=>void
 }
 
 function App(props: AppPropsType) {
