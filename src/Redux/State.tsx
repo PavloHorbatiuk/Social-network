@@ -1,5 +1,6 @@
-import {AppPropsType} from "../App";
-import {rerenderEntireTree} from "../render";
+let rerenderEntireTree=()=>{
+    console.log("satate changed")
+}
 
 export type stateType = {
     messagePage: messagePageType,
@@ -29,7 +30,6 @@ export type SideBarType = {
     id: number,
     name: string
 }
-
 export type MessagesDataType = {
     id: string | number,
     message: string,
@@ -76,13 +76,15 @@ export let addPost = () => {
         LikesCount: "0"
     }
     state.ProfilePage.MyPostsData.push(newPost)
-    rerenderEntireTree(state);
+    rerenderEntireTree();
 }
 
 export let updateNewPostText = (newText: string) => {
     state.ProfilePage.newPostText = newText;
-    rerenderEntireTree(state);
+    rerenderEntireTree();
 }
-
+export const subscribe=(observer:()=>void)=>{
+    rerenderEntireTree=observer;
+}
 
 export default state;

@@ -17,8 +17,6 @@ export type AppPropsType = {
 }
 
 function App(props: AppPropsType) {
-    debugger;
-
     return (
         <BrowserRouter>
             <div className={s.appWrapper}>
