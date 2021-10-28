@@ -5,14 +5,15 @@ import {Profile} from './Components/Profile/Profile';
 import s from './App.module.css';
 import style from './Content.module.css';
 import {BrowserRouter, Route} from "react-router-dom";
-import {addPost, stateType} from "./Redux/State";
+import {addPost, stateType, updateNewPostText} from "./Redux/State";
 import {Dialogs} from './Components/Dialogs/Dialogs';
 import {SideBarFriends} from "./Components/SideBarFriends/SideBarFriends";
 
 
 export type AppPropsType = {
     state: stateType
-    addPost:(postText:string)=>void
+    addPost: () => void
+    updateNewPostText: (newText: string) => void
 }
 
 function App(props: AppPropsType) {
@@ -24,11 +25,14 @@ function App(props: AppPropsType) {
                 <Header/>
                 <div className={s.navbarwrappper}>
                     <Navbar state={props.state}/>
-                <SideBarFriends state={props.state}/>
+                    <SideBarFriends state={props.state}/>
                 </div>
                 <div className={style.content}>
-                    <Route path='/dialogs' render={() => <Dialogs state={props.state.messagePage} />}/>
-                    <Route path='/profile' render={() => <Profile state={props.state.ProfilePage} addPostCallBack={props.addPost} />}/>
+                    <Route path='/dialogs' render={() => <Dialogs state={props.state.messagePage}/>}/>
+                    <Route path='/profile' render={() => <Profile state={props.state.ProfilePage}
+                                                                  addPost={props.addPost}
+                                                                  updateNewPostText={props.updateNewPostText}
+                    />}/>
                 </div>
             </div>
         </BrowserRouter>
