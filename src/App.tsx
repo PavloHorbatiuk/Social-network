@@ -12,10 +12,11 @@ import {SideBarFriends} from "./Components/SideBarFriends/SideBarFriends";
 
 export type AppPropsType = {
     state: stateType
-    addPost:(postText:string|undefined)=>void
+    addPost:(postText:string)=>void
 }
 
 function App(props: AppPropsType) {
+    debugger;
 
     return (
         <BrowserRouter>
@@ -27,7 +28,7 @@ function App(props: AppPropsType) {
                 </div>
                 <div className={style.content}>
                     <Route path='/dialogs' render={() => <Dialogs state={props.state.messagePage} />}/>
-                    <Route path='/profile' render={() => <Profile state={props.state.ProfilePage} addPost={props.addPost} />}/>
+                    <Route path='/profile' render={() => <Profile state={props.state.ProfilePage} addPostCallBack={props.addPost} />}/>
                 </div>
             </div>
         </BrowserRouter>

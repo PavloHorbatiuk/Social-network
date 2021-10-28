@@ -1,4 +1,5 @@
 import {AppPropsType} from "../App";
+import {rerenderEntireTree} from "../render";
 
 export type stateType = {
     messagePage: messagePageType,
@@ -6,7 +7,8 @@ export type stateType = {
     SideBar: Array<SideBarType>
 }
 export type ProfilePageType = {
-    MyPostsData: Array<MyPostsData>
+    MyPostsData: Array<MyPostsData>,
+    newPostText:string,
 }
 type MyPostsData = {
     id: number,
@@ -42,7 +44,9 @@ let state: stateType = {
         MyPostsData: [
             { id: 1, message: 'Hello my friend', LikesCount: '12' },
             { id: 2, message: 'This is my first post', LikesCount: '10' },
-        ]
+            { id: 2, message: 'DaDa', LikesCount: '10' },
+        ],
+        newPostText:"Введите текст",
     },
     messagePage: {
         DialogsData: [
@@ -65,13 +69,19 @@ let state: stateType = {
         { id: 3, name: "Sveta" },
     ]
 }
-export let addPost =(postText:string| undefined)=>{
+export let addPost =(postText:string)=>{
     const newPost= {
         id: new Date().getTime(),
-        message:postText !=null? postText:"---",
-        likeCount:0
+        message:state.ProfilePage.newPostText,
+        LikesCount:"0"
     }
-    state.messagePage.MessagesData.push(newPost);
+    state.ProfilePage.MyPostsData.push(newPost)
+    rerenderEntireTree(state);
+}
+
+let updateNewPostText=(newText:string)=>{
+    state.ProfilePage.newPostText="newText";
+    rerenderEntireTree(state);
 }
 
 
