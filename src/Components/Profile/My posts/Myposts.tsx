@@ -1,6 +1,8 @@
 import React, {ChangeEvent, ChangeEventHandler} from 'react';
 import {Posts} from './Posts/Posts';
 import s from './MyPosts.module.css';
+import {Button, InputUnstyled, TextareaAutosize, TextField} from "@mui/material";
+import {InputOutlined, TextFields, TextFieldsOutlined, TextFieldsTwoTone} from "@mui/icons-material";
 
 type MyPostsDataType = {
     id: number,
@@ -19,8 +21,8 @@ export const MyPosts = (props: MyPostsType) => {
     let addPost = () => {
         props.addPost()
     }
-    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewPostText(e.currentTarget.value)
+    const onPostChange = (e: ChangeEvent<HTMLInputElement>) => {
+        props.updateNewPostText(e.currentTarget?.value)
     }
     return <div>
         <div className={s.posts}>
@@ -29,10 +31,10 @@ export const MyPosts = (props: MyPostsType) => {
         <div>
             <h2>{props.updateNewPostText}</h2>
             <div>
-                <textarea value={props.newPostText} onChange={onPostChange}></textarea>
+                <TextField  label="Chat"   value={props.newPostText} onChange={onPostChange}/>
             </div>
             <div>
-                <button onClick={addPost}>add post</button>
+                <Button onClick={addPost}>Add post</Button>
             </div>
         </div>
     </div>
