@@ -30,8 +30,6 @@ export const Dialogs = (props: { state: messagePageType }) => {
             </div>
             <div className={s.messages}>
                 {messagesElement}
-            </div>
-            <div>
                 <textarea ref={newPostElement}></textarea>
                 <button onClick={addChat}>Sent</button>
             </div>
