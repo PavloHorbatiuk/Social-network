@@ -3,6 +3,9 @@ import {NavLink} from 'react-router-dom';
 import s from './Dialogs.module.css'
 import {Message} from './Message/Message';
 import {messagePageType} from "../../Redux/State";
+import {Button, Input, TextField} from "@mui/material";
+import {TextFields} from "@mui/icons-material";
+
 
 
 const DialogsItems = (props: any) => {
@@ -31,7 +34,7 @@ export const Dialogs = (props: { state: messagePageType }) => {
             <div className={s.messages}>
                 {messagesElement}
                 <textarea ref={newPostElement}></textarea>
-                <button onClick={addChat}>Sent</button>
+                <Button variant="contained" onClick={addChat}>Sent</Button>
             </div>
         </div>
     )
