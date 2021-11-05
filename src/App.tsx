@@ -5,16 +5,14 @@ import {Profile} from './Components/Profile/Profile';
 import s from './App.module.css';
 import style from './Content.module.css';
 import {BrowserRouter, Route} from "react-router-dom";
-import {stateType, storeType} from "./Redux/State";
+import {DispatchAcType, storeType} from "./Redux/State";
 import {Dialogs} from './Components/Dialogs/Dialogs';
 import {SideBarFriends} from "./Components/SideBarFriends/SideBarFriends";
 
 
 export type AppPropsType = {
-    // state: stateType
-    // addPost: () => void
-    // updateNewPostText: (newText: string) => void
     store: storeType
+    dispatch: (action: DispatchAcType) => void
 }
 
 const App: React.FC<AppPropsType> = (props) => {
@@ -30,8 +28,7 @@ const App: React.FC<AppPropsType> = (props) => {
                 <div className={style.content}>
                     <Route path='/dialogs' render={() => <Dialogs state={props.store._state.messagePage}/>}/>
                     <Route path='/profile' render={() => <Profile state={props.store._state.ProfilePage}
-                                                                  addPost={props.store.addPost.bind(props.store)}
-                                                                  updateNewPostText={props.store.updateNewPostText.bind(props.store)}
+                                                                  dispatch={props.dispatch}
                     />}/>
                 </div>
             </div>
