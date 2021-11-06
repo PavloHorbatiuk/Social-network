@@ -5,7 +5,7 @@ import {Profile} from './Components/Profile/Profile';
 import s from './App.module.css';
 import style from './Content.module.css';
 import {BrowserRouter, Route} from "react-router-dom";
-import {DispatchAcType, storeType} from "./Redux/State";
+import store, {DispatchAcType, storeType} from "./Redux/State";
 import {Dialogs} from './Components/Dialogs/Dialogs';
 import {SideBarFriends} from "./Components/SideBarFriends/SideBarFriends";
 
@@ -26,7 +26,7 @@ const App: React.FC<AppPropsType> = (props) => {
                     <SideBarFriends state={props.store._state}/>
                 </div>
                 <div className={style.content}>
-                    <Route path='/dialogs' render={() => <Dialogs state={props.store._state.messagePage}/>}/>
+                    <Route path='/dialogs' render={() => <Dialogs store={props.store}/>}/>
                     <Route path='/profile' render={() => <Profile state={props.store._state.ProfilePage}
                                                                   dispatch={props.dispatch}
                     />}/>

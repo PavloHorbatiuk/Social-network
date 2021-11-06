@@ -22,7 +22,6 @@ type MyPostsData = {
 export type messagePageType = {
     MessagesData: Array<MessagesDataType>,
     DialogsData: Array<DialogsDataType>,
-
 }
 export type DialogsDataType = {
     id: number,
@@ -60,11 +59,11 @@ export type UpdateMessageBodyACType={
     type:"UPDATE_NEW_MEWSSAGE_BODY"
     body:string
 }
-export type SenMessageBodyACType={
+export type SendMessageBodyACType={
     type:"SEND_MESSAGE_BODY",
 
 }
-export type DispatchAcType = AddpostACType | ChangeNewPostACType|UpdateMessageBodyACType|SenMessageBodyACType
+export type DispatchAcType = AddpostACType | ChangeNewPostACType|UpdateMessageBodyACType|SendMessageBodyACType
 
 const store: storeType = {
     _state: {
@@ -118,7 +117,7 @@ const store: storeType = {
             this._state.newMessageBody=action.body;
             this.rerenderEntireTree()
         }else if (action.type==="SEND_MESSAGE_BODY"){
-            let body= this._state.newMessageBody='';
+            let body= this._state.newMessageBody=('');
             this._state.messagePage.MessagesData.push({id: 4, message: body});
             this.rerenderEntireTree()
         }
@@ -130,7 +129,7 @@ const store: storeType = {
         this.rerenderEntireTree = observer;
     },
 }
-export const senMessageBodyCreator=():SenMessageBodyACType=>{
+export const senMessageBodyCreator=():SendMessageBodyACType=>{
     return {
         type: "SEND_MESSAGE_BODY"
     }

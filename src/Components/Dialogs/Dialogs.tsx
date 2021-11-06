@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import {NavLink} from 'react-router-dom';
 import s from './Dialogs.module.css'
 import {Message} from './Message/Message';
-import {messagePageType} from "../../Redux/State";
-import {Button, Input, TextField} from "@mui/material";
-import {TextFields} from "@mui/icons-material";
-
+import {
+    senMessageBodyCreator,
+    stateType,
+    storeType, updateNewMessageBodyCreator
+} from "../../Redux/State";
+import {Box, Button} from "@mui/material";
 
 
 const DialogsItems = (props: any) => {
@@ -17,24 +19,37 @@ const DialogsItems = (props: any) => {
 
     )
 }
+type DialogsType = {
+    store: storeType
+    // getState: () => stateType
 
-export const Dialogs = (props: { state: messagePageType }) => {
-    let DialogsElements = props.state.DialogsData.map(d => <DialogsItems name={d.name} id={d.id}/>);
-    let messagesElement = props.state.MessagesData.map(m => <Message message={m.message}/>)
+
+}
+
+export const Dialogs = (props: DialogsType) => {
+    let state = props.store.getState().messagePage.DialogsData;
+    let DialogsElements = props.store._state.messagePage.DialogsData.map(d => <DialogsItems name={d.name} id={d.id}/>);
+    let messagesElement = props.store._state.messagePage.MessagesData.map(m => <Message message={m.message}/>);
+    let newMessaggeBody = props.store.getState().newMessageBody;
     const addChat = () => {
-        let tex = () => newPostElement.current?.value;
-        alert(tex())
+        props.store.dispatch(senMessageBodyCreator())
     }
-    let newPostElement = React.createRef<HTMLTextAreaElement>();
+    const onChangeNewBody = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let body = e.currentTarget?.value
+        props.store.dispatch(updateNewMessageBodyCreator(body))
+    }
+
     return (
         <div className={s.dialogs}>
             <div className={s.dialogItems}>
                 <span>{DialogsElements}</span>
             </div>
             <div className={s.messages}>
-                {messagesElement}
-                <textarea ref={newPostElement}></textarea>
-                <Button variant="contained" onClick={addChat}>Sent</Button>
+                <div>{messagesElement}</div>
+                <div>
+                    <div><textarea value={newMessaggeBody} onChange={onChangeNewBody}></textarea></div>
+                    <div><Button variant="contained" onClick={addChat}>Sent</Button></div>
+                </div>
             </div>
         </div>
     )
