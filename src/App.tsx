@@ -1,35 +1,33 @@
 import React from 'react';
-import {Header} from './Components/Header/Header';
-import {Navbar} from './Components/Navbar/Navbar';
-import {Profile} from './Components/Profile/Profile';
+import { Header } from './Components/Header/Header';
+import { Navbar } from './Components/Navbar/Navbar';
+import { Profile } from './Components/Profile/Profile';
 import s from './App.module.css';
 import style from './Content.module.css';
-import {BrowserRouter, Route} from "react-router-dom";
-import store, {DispatchAcType, storeType} from "./Redux/State";
-import {Dialogs} from './Components/Dialogs/Dialogs';
-import {SideBarFriends} from "./Components/SideBarFriends/SideBarFriends";
+import { BrowserRouter, Route } from "react-router-dom";
+import { Dialogs } from './Components/Dialogs/Dialogs';
+import { SideBarFriends } from "./Components/SideBarFriends/SideBarFriends";
+import store, { AppRootStateType } from "./Redux/redax-store";
+import Store from './Redux/Store';
 
 
 export type AppPropsType = {
-    store: storeType
-    dispatch: (action: DispatchAcType) => void
+   
 }
 
-const App: React.FC<AppPropsType> = (props) => {
-    const state = props.store.getState();
+const App: React.FC<AppPropsType> = (props: AppPropsType) => {
     return (
         <BrowserRouter>
             <div className={s.appWrapper}>
-                <Header/>
+                <Header />
                 <div className={s.navbarwrappper}>
-                    <Navbar state={props.store._state}/>
-                    <SideBarFriends state={props.store._state}/>
+                    <Navbar />
+                    <SideBarFriends />
                 </div>
                 <div className={style.content}>
-                    <Route path='/dialogs' render={() => <Dialogs store={props.store}/>}/>
-                    <Route path='/profile' render={() => <Profile state={props.store._state.ProfilePage}
-                                                                  dispatch={props.dispatch}
-                    />}/>
+                    <Route path='/dialogs' render={() =>
+                        <Dialogs  />} />
+                    <Route path='/profile' render={() => <Profile />} />
                 </div>
             </div>
         </BrowserRouter>

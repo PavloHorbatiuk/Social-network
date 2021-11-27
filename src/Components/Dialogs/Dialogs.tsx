@@ -2,13 +2,10 @@ import React, {ChangeEvent} from 'react';
 import {NavLink} from 'react-router-dom';
 import s from './Dialogs.module.css'
 import {Message} from './Message/Message';
-import {
-    senMessageBodyCreator,
-    stateType,
-    storeType, updateNewMessageBodyCreator
-} from "../../Redux/State";
-import {Box, Button} from "@mui/material";
-
+import {DialogsType, sendMessageBodyAC, updateNewMessageBodyAC} from "../../Redux/Dialogs-reducer";
+import {Button} from "@mui/material";
+import {AppRootStateType} from "../../Redux/redax-store";
+import {useDispatch, useSelector} from "react-redux";
 
 const DialogsItems = (props: any) => {
     let path = '/dialogs/' + props.id;
@@ -16,27 +13,26 @@ const DialogsItems = (props: any) => {
         <div className={s.dialog + '' + s.active}>
             <NavLink to={path}>{props.name}</NavLink>
         </div>
-
     )
 }
-type DialogsType = {
-    store: storeType
-    // getState: () => stateType
 
 
-}
+export const Dialogs = () => {
+    const dispatch = useDispatch();
+    const dialogsMessage = useSelector<AppRootStateType, DialogsType>(state => state.dialogsReducer)
 
-export const Dialogs = (props: DialogsType) => {
-    let state = props.store.getState().messagePage.DialogsData;
-    let DialogsElements = props.store._state.messagePage.DialogsData.map(d => <DialogsItems name={d.name} id={d.id}/>);
-    let messagesElement = props.store._state.messagePage.MessagesData.map(m => <Message message={m.message}/>);
-    let newMessaggeBody = props.store.getState().newMessageBody;
+    let DialogsElements = dialogsMessage.messagePage.DialogsData.map(d => <DialogsItems name={d.name}
+                                                                                        id={d.id}/>);
+    let messagesElement = dialogsMessage.messagePage.MessagesData.map(m => <Message message={m.message}/>);
+    let newMessageBody = dialogsMessage.newMessageBody;
     const addChat = () => {
-        props.store.dispatch(senMessageBodyCreator())
+        dispatch(sendMessageBodyAC());
+
     }
     const onChangeNewBody = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let body = e.currentTarget?.value
-        props.store.dispatch(updateNewMessageBodyCreator(body))
+        debugger
+        let body = e.currentTarget.value
+        dispatch(updateNewMessageBodyAC(body));
     }
 
     return (
@@ -47,7 +43,7 @@ export const Dialogs = (props: DialogsType) => {
             <div className={s.messages}>
                 <div>{messagesElement}</div>
                 <div>
-                    <div><textarea value={newMessaggeBody} onChange={onChangeNewBody}></textarea></div>
+                    <div><textarea value={newMessageBody} onChange={onChangeNewBody}/></div>
                     <div><Button variant="contained" onClick={addChat}>Sent</Button></div>
                 </div>
             </div>

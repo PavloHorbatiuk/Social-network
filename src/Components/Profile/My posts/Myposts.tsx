@@ -1,8 +1,11 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, KeyboardEvent} from 'react';
 import {Posts} from './Posts/Posts';
 import s from './MyPosts.module.css';
-import {Button, TextField} from "@mui/material";
-import {addPostActionCreator, DispatchAcType, onPostChangeActionCreator} from "../../../Redux/State";
+import {Button, TextField, Typography} from "@mui/material";
+import {AppRootStateType} from "../../../Redux/redax-store";
+import {useSelector} from "react-redux";
+import {ProfileType} from "../../../Redux/Profile-reducer";
+
 
 type MyPostsDataType = {
     id: number,
@@ -10,33 +13,47 @@ type MyPostsDataType = {
     LikesCount: string
 }
 type MyPostsType = {
-    MyPostsData: Array<MyPostsDataType>
-    newPostText: string
-    dispatch: (action: DispatchAcType) => void
-    newText: string
+    postProfile: string
+    addPost: () => void
+    onPostChangeContainer: (newText: string) => void
+
 }
 
 
 export const MyPosts = (props: MyPostsType) => {
-    let PostsElement = props.MyPostsData.map(m => <Posts message={m.message} LikesCount={m.LikesCount}  />)
-    let addPost = () => {
-        props.dispatch(addPostActionCreator(props.newPostText));
+    const profilePage = useSelector<AppRootStateType, ProfileType>(state => state.profileReducer)
+    let postsElement = profilePage.ProfilePage.MyPostsData.map(m => <Posts message={m.message}
+                                                                           LikesCount={m.LikesCount}/>)
+    let onAddPost = () => {
+        props.addPost();
     }
     const onPostChange = (e: ChangeEvent<HTMLInputElement>) => {
-        let action = onPostChangeActionCreator(e.currentTarget?.value)
-        props.dispatch(action)
+        let newText = e.currentTarget.value;
+        props.onPostChangeContainer(newText)
+    }
+    const onkeypressButton = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.charCode === 13) {
+            onAddPost()
+        }
     }
     return <div>
+        <Typography variant="subtitle1" gutterBottom component="div">
         <div className={s.posts}>
-            {PostsElement}
+            {postsElement}
         </div>
+        </Typography>
         <div>
-            {/*<h2>{props.newPostText}</h2>*/}
             <div>
-                <TextField label="Chat" value={props.newPostText} onChange={onPostChange}/>
+                <TextField
+                    id="outlined-basic"
+                    label="Введите текст"
+                    variant="outlined"
+                    onKeyPress={onkeypressButton}
+                    value={props.postProfile}
+                    onChange={onPostChange}/>
             </div>
             <div>
-                <Button onClick={addPost}>Add post</Button>
+                <Button onClick={onAddPost}>Add post</Button>
             </div>
         </div>
     </div>
