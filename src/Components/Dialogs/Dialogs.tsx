@@ -24,9 +24,9 @@ const DialogsItems = (props: any) => {
 
 export const Dialogs = (props: dialogsType) => {
     const dialogsMessage = useSelector<AppRootStateType, DialogsType>(state => state.dialogsReducer)
-    let DialogsElements = dialogsMessage.messagePage.DialogsData.map(d => <DialogsItems name={d.name}
+    let DialogsElements = dialogsMessage.DialogsData.map(d => <DialogsItems name={d.name}
                                                                                         id={d.id}/>);
-    let messagesElement = dialogsMessage.messagePage.MessagesData.map(m => <Message message={m.message}/>);
+    let messagesElement = dialogsMessage.MessagesData.map(m => <Message message={m.message}/>);
 
     const addChat = () => {
         props.addChatContainer()

@@ -14,7 +14,7 @@ let initialState = {
         MyPostsData: [
             {id: 1, message: 'Hello my friend', LikesCount: '12'},
             {id: 2, message: 'This is my first post', LikesCount: '10'},
-            {id: 2, message: 'DaDa', LikesCount: '10'},
+            {id: 3, message: 'DaDa', LikesCount: '10'},
         ],
         postProfile: "",
     },
@@ -22,18 +22,22 @@ let initialState = {
 
 export const profileReducer = (state: ProfileType = initialState, action: ActionTypes): typeof initialState => {
     switch (action.type) {
-        case ADD_POST: {
+        case ADD_POST:{
             let newPost = {
                 id: new Date().getTime(),
                 message: state.ProfilePage.postProfile,
                 LikesCount: "0"
             }
-            let stateCopy = {...state};
-            stateCopy.ProfilePage= {...state.ProfilePage}
-            stateCopy.ProfilePage.MyPostsData.push(newPost);
-            stateCopy.ProfilePage.postProfile = ("");
-            return {...stateCopy};
-        }
+            return {
+                ...state,
+                ProfilePage:{
+                    MyPostsData: [...state.ProfilePage.MyPostsData, newPost],
+                    postProfile: ''
+                }
+
+            }
+    }
+
         case UPDATE_NEW_POST_TEXT: {
             let stateCopy = {...state}
             stateCopy.ProfilePage.postProfile = action.newText;
