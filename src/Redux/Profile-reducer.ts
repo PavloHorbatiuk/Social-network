@@ -20,38 +20,44 @@ let initialState = {
     },
 };
 
-export const profileReducer = (state:ProfileType =initialState, action: ActyionTypes): typeof initialState => {
+export const profileReducer = (state: ProfileType = initialState, action: ActionTypes): typeof initialState => {
     switch (action.type) {
-        case ADD_POST:
+        case ADD_POST: {
             let newPost = {
                 id: new Date().getTime(),
                 message: state.ProfilePage.postProfile,
                 LikesCount: "0"
             }
-            state.ProfilePage.MyPostsData.push(newPost);
-            state.ProfilePage.postProfile = ("");
+            let stateCopy = {...state};
+            stateCopy.ProfilePage= {...state.ProfilePage}
+            stateCopy.ProfilePage.MyPostsData.push(newPost);
+            stateCopy.ProfilePage.postProfile = ("");
+            return {...stateCopy};
+        }
+        case UPDATE_NEW_POST_TEXT: {
+            let stateCopy = {...state}
+            stateCopy.ProfilePage.postProfile = action.newText;
             return {...state};
-        case UPDATE_NEW_POST_TEXT:
-            state.ProfilePage.postProfile = action.newText;
-            return {...state};
+        }
         default:
-            return state
+            return state;
     }
 }
-export const addPostActionCreator = (): AddpostACType => {
-    return {
-        type: ADD_POST
+    export const addPostActionCreator = (): AddpostACType => {
+        return {
+            type: ADD_POST
+        }
     }
-}
 
-export const onPostChangeActionCreator = (newText: string): ChangeNewPostACType => {
-    return {
-        type: "UPDATE_NEW_POST_TEXT",
-        newText: newText
-    } 
-}
-type  AddPostActionCreatorType = ReturnType<typeof addPostActionCreator>
-type OnPostChangeActionCreatorType = ReturnType<typeof onPostChangeActionCreator>
-type ActyionTypes = AddPostActionCreatorType | OnPostChangeActionCreatorType
+
+    export const onPostChangeActionCreator = (newText: string): ChangeNewPostACType => {
+        return {
+            type: "UPDATE_NEW_POST_TEXT",
+            newText: newText
+        }
+    }
+    type  AddPostActionCreatorType = ReturnType<typeof addPostActionCreator>
+    type OnPostChangeActionCreatorType = ReturnType<typeof onPostChangeActionCreator>
+    type ActionTypes = AddPostActionCreatorType | OnPostChangeActionCreatorType;
 
 

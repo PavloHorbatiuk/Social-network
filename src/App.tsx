@@ -5,10 +5,8 @@ import { Profile } from './Components/Profile/Profile';
 import s from './App.module.css';
 import style from './Content.module.css';
 import { BrowserRouter, Route } from "react-router-dom";
-import { Dialogs } from './Components/Dialogs/Dialogs';
 import { SideBarFriends } from "./Components/SideBarFriends/SideBarFriends";
-import store, { AppRootStateType } from "./Redux/redax-store";
-import Store from './Redux/Store';
+import {DialogsContainer} from "./Components/Dialogs/Message/DialogsContainer";
 
 
 export type AppPropsType = {
@@ -26,7 +24,7 @@ const App: React.FC<AppPropsType> = (props: AppPropsType) => {
                 </div>
                 <div className={style.content}>
                     <Route path='/dialogs' render={() =>
-                        <Dialogs  />} />
+                        <DialogsContainer  />} />
                     <Route path='/profile' render={() => <Profile />} />
                 </div>
             </div>

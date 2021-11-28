@@ -1,15 +1,14 @@
-import React, {ChangeEvent, KeyboardEventHandler} from 'react';
+import React from 'react';
 import {MyPosts} from "../Myposts";
 import {
     addPostActionCreator,
     onPostChangeActionCreator,
-    profileReducer,
+
     ProfileType
 } from "../../../../Redux/Profile-reducer";
-import store, {AppRootStateType} from "../../../../Redux/redax-store";
-import {connect, ConnectedProps, useDispatch, useSelector} from "react-redux";
-import {DialogsType} from "../../../../Redux/Dialogs-reducer";
-import {runInNewContext} from "vm";
+import  {AppRootStateType} from "../../../../Redux/redax-store";
+import { useDispatch, useSelector} from "react-redux";
+
 
 type MyPostsDataType = {
     id: number,

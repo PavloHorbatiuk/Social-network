@@ -6,17 +6,10 @@ import {AppRootStateType} from "../../../Redux/redax-store";
 import {useSelector} from "react-redux";
 import {ProfileType} from "../../../Redux/Profile-reducer";
 
-
-type MyPostsDataType = {
-    id: number,
-    message: string,
-    LikesCount: string
-}
 type MyPostsType = {
     postProfile: string
     addPost: () => void
     onPostChangeContainer: (newText: string) => void
-
 }
 
 
