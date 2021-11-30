@@ -3,11 +3,13 @@ import {Posts} from './Posts/Posts';
 import s from './MyPosts.module.css';
 import {Button, TextField, Typography} from "@mui/material";
 import {AppRootStateType} from "../../../Redux/redax-store";
-import {useSelector} from "react-redux";
 import {ProfileType} from "../../../Redux/Profile-reducer";
+import {useSelector} from "react-redux";
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+
 
 type MyPostsType = {
-    postProfile: string
     addPost: () => void
     onPostChangeContainer: (newText: string) => void
 }
@@ -30,10 +32,22 @@ export const MyPosts = (props: MyPostsType) => {
         }
     }
     return <div>
+
         <Typography variant="subtitle1" gutterBottom component="div">
-        <div className={s.posts}>
-            {postsElement}
-        </div>
+            <div className={s.posts}>
+                <Box sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    '& > :not(style)': {
+                        m: 1,
+                      width:1000
+                    },
+                }} >
+                    <Paper  elevation={3}>
+                {postsElement}
+                    </Paper>
+                </Box>
+            </div>
         </Typography>
         <div>
             <div>
@@ -42,13 +56,14 @@ export const MyPosts = (props: MyPostsType) => {
                     label="Введите текст"
                     variant="outlined"
                     onKeyPress={onkeypressButton}
-                    value={props.postProfile}
+                    value={profilePage.ProfilePage.postProfile}
                     onChange={onPostChange}/>
             </div>
             <div>
                 <Button onClick={onAddPost}>Add post</Button>
             </div>
         </div>
+
     </div>
 }
 

@@ -30,12 +30,6 @@ export const dialogsReducer = (state: DialogsType = initialState, action: Action
                 ...state,
                 newMessageBody: '',
                 MessagesData: [...state.MessagesData, {id: 6, message: body}]
-                // let stateCopy={...state}
-                // stateCopy.messagePage={...state.messagePage}
-                // let body = stateCopy.newMessageBody;
-                // stateCopy.messagePage.MessagesData.push({id: 4, message: body});
-                // stateCopy.newMessageBody="";
-                // return {...stateCopy};
             };
         default:
             return state;

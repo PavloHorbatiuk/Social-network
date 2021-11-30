@@ -4,13 +4,12 @@ import s from './Dialogs.module.css'
 import {Message} from './Message/Message';
 import {Button, TextField} from "@mui/material";
 import {AppRootStateType} from "../../Redux/redax-store";
-import {useDispatch, useSelector} from "react-redux";
-import {dialogsReducer, DialogsType} from "../../Redux/Dialogs-reducer";
+import { useSelector} from "react-redux";
+import { DialogsType} from "../../Redux/Dialogs-reducer";
 
 type dialogsType = {
     addChatContainer: () => void
     onNewChangeNewBody: (body: string) => void
-    newMessageBody: string
 }
 const DialogsItems = (props: any) => {
     let path = '/dialogs/' + props.id;
@@ -56,7 +55,7 @@ export const Dialogs = (props: dialogsType) => {
                         label="Введите текст"
                         variant="outlined"
                         onKeyPress={sendMButton}
-                        value={props.newMessageBody}
+                        value={dialogsMessage.newMessageBody}
                         onChange={onChangeNewBody}/></div>
                     <div><Button variant="contained" onClick={addChat}>Sent</Button></div>
                 </div>
