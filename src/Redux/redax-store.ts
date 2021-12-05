@@ -4,11 +4,14 @@ import {profileReducer} from "./Profile-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 import {usersReducer} from "./Users-reducer";
 
+
+
+
 let reducers= combineReducers({
     dialogsReducer,
     profileReducer,
     sidebarReducer,
-    usersReducer
+    users:usersReducer
 });
 
 export const store = createStore(reducers);

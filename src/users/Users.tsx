@@ -1,30 +1,37 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../Redux/redax-store";
-import {DialogsType, followAC, unFollowAC} from "../Redux/Users-reducer";
 import s from "./Users.module.css"
-import {Avatar, Button, Fab} from "@mui/material";
 import Typography from '@mui/material/Typography'
+import {UsersPropsType} from "./UsersContainer";
+import axios from "axios";
+import dudeWithSuite from '../assets/images/dudeWithSuite.jpg'
+import {Button} from "@mui/material";
 
 
-const Users = () => {
-    const dispatch = useDispatch();
-    const usersSelector = useSelector<AppRootStateType, DialogsType>(state => state.usersReducer)
+export const Users = (props: UsersPropsType) => {
+    if (props.usersPage.users.length === 0) {
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+
+            props.setUsers(response.data.items)
+
+        })
+
+    }
     return (
         <div>
             {
-                usersSelector.users.map(u => <div key={u.id}>
+                props.usersPage.users.map(u => <div key={u.id}>
                 <span>
                     <div>
-                        <Avatar alt="Travis Howard" src={u.pictureUrl} className={s.usersFoto}/>
+                        <img src={u.photos.Small != null ? u.photos.Small : dudeWithSuite}
+                             className={s.usersFoto}/>
                     </div>
                     <div>{u.followed ?
                         <Button variant="contained" size="small" onClick={() => {
-                            dispatch(unFollowAC(u.id))
+                            props.unfollow(u.id)
                         }}
                         >Unfollow</Button> :
                         <Button variant="contained" size="small" onClick={() => {
-                            dispatch(followAC(u.id))
+                            props.follow(u.id)
                         }}
                         >Follow</Button>}
                         </div>
@@ -32,12 +39,12 @@ const Users = () => {
                         <span>
                             <Typography mt={2}>
                     <span>
-                        <div>{u.fullName}</div>
+                        <div>{u.name}</div>
                         <div>{u.status}</div>
                     </span>
                     <span>
-                        <div>{u.location.country}</div>
-                        <div>{u.location.city}</div>
+                        <div>{"u.location.country"}</div>
+                        <div>{"u.location.city"}</div>
                     </span>
                                   </Typography>
                     <span>
