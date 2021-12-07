@@ -1,25 +1,29 @@
 import React from 'react';
 import s from "./Users.module.css"
 import Typography from '@mui/material/Typography'
-import {UsersPropsType} from "./UsersContainer";
 import axios from "axios";
 import dudeWithSuite from '../assets/images/dudeWithSuite.jpg'
 import {Button} from "@mui/material";
+import {UsersPropsType} from "./UsersContainer";
+import {InitialStateType} from "../Redux/Users-reducer";
 
 
-export const Users = (props: UsersPropsType) => {
-    if (props.usersPage.users.length === 0) {
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+class UsersC extends React.Component<UsersPropsType, InitialStateType> {
+    getUsers = () => {
+        if (this.props.usersPage.users.length === 0) {
+            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
 
-            props.setUsers(response.data.items)
+                this.props.setUsers(response.data.items)
 
-        })
-
+            })
+        }
     }
-    return (
-        <div>
+
+    render() {
+        return <div>
+            <Button variant="outlined" onClick={this.getUsers}>Get Users</Button>
             {
-                props.usersPage.users.map(u => <div key={u.id}>
+                this.props.usersPage.users.map(u => <div key={u.id}>
                 <span>
                     <div>
                         <img src={u.photos.Small != null ? u.photos.Small : dudeWithSuite}
@@ -27,11 +31,11 @@ export const Users = (props: UsersPropsType) => {
                     </div>
                     <div>{u.followed ?
                         <Button variant="contained" size="small" onClick={() => {
-                            props.unfollow(u.id)
+                            this.props.unfollow(u.id)
                         }}
                         >Unfollow</Button> :
                         <Button variant="contained" size="small" onClick={() => {
-                            props.follow(u.id)
+                            this.props.follow(u.id)
                         }}
                         >Follow</Button>}
                         </div>
@@ -57,6 +61,7 @@ export const Users = (props: UsersPropsType) => {
             }
 
         </div>
-    )
+    }
 }
-export default Users;
+
+export default UsersC;
