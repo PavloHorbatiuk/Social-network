@@ -8,20 +8,15 @@ import {UsersPropsType} from "./UsersContainer";
 import {InitialStateType} from "../Redux/Users-reducer";
 
 
-class UsersC extends React.Component<UsersPropsType, InitialStateType> {
-    getUsers = () => {
-        if (this.props.usersPage.users.length === 0) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-
-                this.props.setUsers(response.data.items)
-
-            })
-        }
-    }
+class Users extends React.Component<UsersPropsType, InitialStateType> {
+   componentDidMount() {
+       axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+           this.props.setUsers(response.data.items)
+       })
+   }
 
     render() {
         return <div>
-            <Button variant="outlined" onClick={this.getUsers}>Get Users</Button>
             {
                 this.props.usersPage.users.map(u => <div key={u.id}>
                 <span>
@@ -64,4 +59,4 @@ class UsersC extends React.Component<UsersPropsType, InitialStateType> {
     }
 }
 
-export default UsersC;
+export default Users;

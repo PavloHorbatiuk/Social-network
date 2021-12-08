@@ -6,8 +6,6 @@ import {Dispatch} from "redux";
 import Users from "./Users";
 
 
-
-
 type mapStateToPropsType = {
     usersPage: InitialStateType
 }
@@ -20,7 +18,7 @@ export type UsersPropsType = mapDispatchToPRopsType & mapStateToPropsType
 
 const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     return {
-        usersPage:state.users
+        usersPage: state.users
     }
 }
 

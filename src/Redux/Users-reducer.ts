@@ -5,7 +5,7 @@ const SET_USERS = "SET-USERS"
 
 export type UserType = {
     id: number,
-    photos:PhotosType
+    photos: PhotosType
     followed: boolean,
     name: string,
     status: string
@@ -50,7 +50,7 @@ export const initialState: InitialStateType = {
         // ]
     ]
 };
- export type InitialStateType = {
+export type InitialStateType = {
     users: Array<UserType>
 }
 
@@ -96,7 +96,7 @@ export const unFollowAC = (userId: number) => {
         userId
     } as const
 }
-export const setUsersAC = (users:Array<UserType>) => {
+export const setUsersAC = (users: Array<UserType>) => {
     return {
         type: SET_USERS,
         users
