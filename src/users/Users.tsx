@@ -3,7 +3,6 @@ import s from "./Users.module.css";
 import dudeWithSuite from "../assets/images/dudeWithSuite.jpg";
 import {Button} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import {UsersPropsType} from "./UsersContainer";
 import {UserType} from "../Redux/Users-reducer";
 
 export type PropsUsersPresentsTYpe = {
