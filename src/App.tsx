@@ -7,7 +7,7 @@ import style from './Content.module.css';
 import {BrowserRouter, Route} from "react-router-dom";
 import {SideBarFriends} from "./Components/SideBarFriends/SideBarFriends";
 import {DialogsContainer} from "./Components/Dialogs/Message/DialogsContainer";
-import Users from "./users/Users";
+import Users from "./users/UsersAPIComponents";
 import UsersContainer from "./users/UsersContainer";
 
 
