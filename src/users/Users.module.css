@@ -4,3 +4,13 @@
     height: 50px;
     border-radius: 50%;
 }
+
+.selectedPageFat{
+    font-size: 12pt;
+    padding: 3px;
+
+}
+.selectedPageThin{
+    font-size: large;
+    padding: 3px;
+}
