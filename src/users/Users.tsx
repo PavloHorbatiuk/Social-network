@@ -38,7 +38,7 @@ const Users = (props: PropsUsersPresentsTYpe) => {
                 props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
-                        <img src={u.photos.Small != null ? u.photos.Small : dudeWithSuite}
+                        <img src={u.photos.small !== null ? u.photos.small : dudeWithSuite}
                              className={s.usersFoto}/>
                     </div>
                     <div>{u.followed ?
@@ -64,7 +64,7 @@ const Users = (props: PropsUsersPresentsTYpe) => {
                     </span>
                                   </Typography>
                     <span>
-                        <div>{}</div>
+                        <div>{u.id}</div>
                     </span>
                 </span>
 

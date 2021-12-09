@@ -4,6 +4,7 @@ const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET-USERS"
 const SET_CURRENT_PAGE = "SET-CURRENT-PAGE"
 const SET_USERS_TOTAL_CUOUNT = "SET-USERS-TOTAL-COUNT"
+const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING"
 
 export type UserType = {
     id: number,
@@ -13,20 +14,23 @@ export type UserType = {
     status: string
 }
 type PhotosType = {
-    Small: string
-    Big: string
+    small: string
+    Large: string
 }
 export const initialState: InitialStateType = {
     users: [],
     pageSize: 5,
     totalUserCount: 0,
     currentPage: 2,
+    isFetching: true
 };
 export type InitialStateType = {
-    users: Array<UserType>
+    users: Array<UserType>,
     pageSize: number,
     totalUserCount: number,
-    currentPage: number
+    currentPage: number,
+    isFetching: boolean
+
 }
 
 
@@ -58,8 +62,11 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
         case SET_CURRENT_PAGE: {
             return {...state, currentPage: action.currentPage}
         }
-        case SET_USERS_TOTAL_CUOUNT:{
-            return {...state,totalUserCount:action.totalCount}
+        case SET_USERS_TOTAL_CUOUNT: {
+            return {...state, totalUserCount: action.totalCount}
+        }
+        case TOGGLE_IS_FETCHING: {
+            return {...state, isFetching: action.isFetching}
         }
         default:
             return state;
@@ -95,12 +102,19 @@ export const setUsersTotalCountAC = (totalCount: number) => {
         totalCount
     } as const
 }
+export const isFetchingAC = (isFetching: boolean) => {
+    return {
+        type: TOGGLE_IS_FETCHING,
+        isFetching
+    }as const
+}
 
 type followACType = ReturnType<typeof followAC>
 type unFollowACType = ReturnType<typeof unFollowAC>
 type setUsersACACType = ReturnType<typeof setUsersAC>
 type setCurrentPageAC = ReturnType<typeof setCurrentPageAC>
 type setUsersTotalCountAC = ReturnType<typeof setUsersTotalCountAC>
+type isFetchingAC = ReturnType<typeof isFetchingAC>
 
 
 export type ActionTypes =
@@ -109,3 +123,4 @@ export type ActionTypes =
     | setUsersACACType
     | setCurrentPageAC
     | setUsersTotalCountAC
+    | isFetchingAC
