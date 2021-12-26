@@ -8,6 +8,8 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {SideBarFriends} from "./Components/SideBarFriends/SideBarFriends";
 import {DialogsContainer} from "./Components/Dialogs/Message/DialogsContainer";
 import UsersContainer from "./users/UsersContainer";
+import ProfileContainer from "./Components/Profile/ProfileContainer";
+
 
 
 export type AppPropsType = {}
@@ -24,8 +26,10 @@ const App: React.FC<AppPropsType> = (props: AppPropsType) => {
                 <div className={style.content}>
                     <Route path='/dialogs' render={() =>
                         <DialogsContainer/>}/>
-                    <Route path='/profile' render={() => <Profile/>}/>
-                    <Route path='/users' render={() => <UsersContainer/>}/>
+                    <Route path='/profile/:userId?'
+                           render={() => <ProfileContainer/>}/>
+                    <Route path='/users'
+                           render={() => <UsersContainer/>}/>
                 </div>
             </div>
         </BrowserRouter>

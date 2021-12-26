@@ -17,7 +17,7 @@ type MyPostsType = {
 
 export const MyPosts = (props: MyPostsType) => {
     const profilePage = useSelector<AppRootStateType, ProfileType>(state => state.profileReducer)
-    let postsElement = profilePage.ProfilePage.MyPostsData.map(m => <Posts message={m.message}
+    let postsElement = profilePage.MyPostsData.map(m => <Posts message={m.message}
                                                                            LikesCount={m.LikesCount}/>)
     let onAddPost = () => {
         props.addPost();
@@ -56,7 +56,7 @@ export const MyPosts = (props: MyPostsType) => {
                     label="Введите текст"
                     variant="outlined"
                     onKeyPress={onkeypressButton}
-                    value={profilePage.ProfilePage.postProfile}
+                    value={profilePage.postProfile}
                     onChange={onPostChange}/>
             </div>
             <div>

@@ -19,9 +19,9 @@ type PhotosType = {
 }
 export const initialState: InitialStateType = {
     users: [],
-    pageSize: 5,
-    totalUserCount: 0,
-    currentPage: 2,
+    pageSize: 7,
+    totalUserCount: 50,
+    currentPage: 1,
     isFetching: true
 };
 export type InitialStateType = {
@@ -99,7 +99,7 @@ export const setCurrentPageAC = (currentPage: number) => {
 export const setUsersTotalCountAC = (totalCount: number) => {
     return {
         type: SET_USERS_TOTAL_CUOUNT,
-        totalCount
+        totalCount: 100
     } as const
 }
 export const isFetchingAC = (isFetching: boolean) => {
@@ -112,15 +112,15 @@ export const isFetchingAC = (isFetching: boolean) => {
 type followACType = ReturnType<typeof followAC>
 type unFollowACType = ReturnType<typeof unFollowAC>
 type setUsersACACType = ReturnType<typeof setUsersAC>
-type setCurrentPageAC = ReturnType<typeof setCurrentPageAC>
-type setUsersTotalCountAC = ReturnType<typeof setUsersTotalCountAC>
-type isFetchingAC = ReturnType<typeof isFetchingAC>
+type setCurrentPageACType = ReturnType<typeof setCurrentPageAC>
+type setUsersTotalCountACType = ReturnType<typeof setUsersTotalCountAC>
+type isFetchingACType = ReturnType<typeof isFetchingAC>
 
 
 export type ActionTypes =
     followACType
     | unFollowACType
     | setUsersACACType
-    | setCurrentPageAC
-    | setUsersTotalCountAC
-    | isFetchingAC
+    | setCurrentPageACType
+    | setUsersTotalCountACType
+    | isFetchingACType

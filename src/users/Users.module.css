@@ -1,16 +1,30 @@
-.usersFoto{
+.usersFoto {
+    padding: 12px;
     vertical-align: middle;
     width: 50px;
     height: 50px;
     border-radius: 50%;
 }
 
-.selectedPageFat{
+.selectedPageFat {
     font-size: 12pt;
     padding: 3px;
 
 }
-.selectedPageThin{
-    font-size: large;
-    padding: 3px;
+
+.selectedPageThin {
+    border-radius: 46%;
+    width: 46px;
+    height: 46px;
+    padding: 1px;
+
+    background: #fff;
+    border: 2px solid #666;
+    color: #666;
+    text-align: center;
+    font-size: 12pt;
+    font-weight: bold;
+
+    /*font: 12px -apple-system sans-serif;*/
+
 }

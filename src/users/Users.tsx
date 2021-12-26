@@ -4,6 +4,7 @@ import dudeWithSuite from "../assets/images/dudeWithSuite.jpg";
 import {Button} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {UserType} from "../Redux/Users-reducer";
+import { NavLink } from 'react-router-dom';
 
 export type PropsUsersPresentsTYpe = {
     onPageChanged: (pageNumber: number) => void
@@ -38,8 +39,10 @@ const Users = (props: PropsUsersPresentsTYpe) => {
                 props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
+                        <NavLink to={'/profile/'+u.id}>
                         <img src={u.photos.small !== null ? u.photos.small : dudeWithSuite}
                              className={s.usersFoto}/>
+                            </NavLink>
                     </div>
                     <div>{u.followed ?
                         <Button variant="contained" size="small" onClick={() => {

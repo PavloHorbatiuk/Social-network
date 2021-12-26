@@ -10,11 +10,10 @@ import {
     unFollowAC,
     UserType
 } from "../Redux/Users-reducer";
-import {Dispatch} from "redux";
 import axios from "axios";
 import Users from "./Users";
-import preloader from './Eclipse-1s-200px.svg'
 import Preloader from "../Components/Common/Preloader/Preloader.sx";
+import {Dispatch} from "redux";
 
 
 type mapStateToPropsType = {
@@ -30,7 +29,7 @@ type mapDispatchToPRopsType = {
     setUsers: (users: Array<UserType>) => void
     setCurrentPage: (pageNumber: number) => void
     setTotalUsersCount: (totalCount: number) => void,
-    toggleIsFetching:(isFetching:boolean)=>void
+    toggleIsFetching:(isFetching: boolean)=>void
 
 }
 
@@ -42,9 +41,9 @@ class UsersContainer extends React.Component<UsersPropsType, InitialStateType> {
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.toggleIsFetching(false)
-            this.props.setUsers(response.data.items);
-            this.props.setTotalUsersCount(response.data.totalCount);
-        })
+                this.props.setUsers(response.data.items);
+                this.props.setTotalUsersCount(response.data.totalCount);
+            })
     }
 
     onPageChanged = (pageNumber: number) => {
@@ -60,7 +59,7 @@ class UsersContainer extends React.Component<UsersPropsType, InitialStateType> {
     render() {
 
         return <>
-            {this.props.isFetching?<Preloader/>:null}
+            {this.props.isFetching ? <Preloader/> : null}
             <Users
                 onPageChanged={this.onPageChanged}
                 totalUsersCount={this.props.totalUserCount}
@@ -83,6 +82,8 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
         isFetching: state.users.isFetching
     }
 }
+
+
 const mapDispatchToPRops = (dispatch: Dispatch): mapDispatchToPRopsType => {
     return {
         follow: (usersId: number) => {
@@ -100,7 +101,7 @@ const mapDispatchToPRops = (dispatch: Dispatch): mapDispatchToPRopsType => {
         setTotalUsersCount: (totalCount: number) => {
             dispatch(setUsersTotalCountAC(totalCount))
         },
-        toggleIsFetching:(isFetching:boolean)=>{
+        toggleIsFetching: (isFetching: boolean) => {
             dispatch(isFetchingAC(isFetching))
         }
     }
