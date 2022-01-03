@@ -2,24 +2,17 @@ import React from 'react';
 import {connect} from "react-redux";
 import {AppRootStateType} from "../Redux/redax-store";
 import {
-    follow,
-    FollowingType,
-    getUsersThunkCreator,
+    FollowingType, getUsersThunkCreator,
     InitialStateType,
-    isFetching,
-    isFetchingAC,
-    setCurrentPage, setCurrentPageAC,
-    setUsers, setUsersAC,
-    setUsersTotalCount, setUsersTotalCountAC,
-    toogleFollowingProgres,
-    unFollow, unFollowAC,
-    UserType
+    UserType,
+    followAC, unFollowAC, setCurrentPageAC, setUsersTotalCountAC, isFetchingAC, toogleFollowingProgresAC, setUsersAC
 } from "../Redux/Users-reducer";
 import axios from "axios";
 import Users from "./Users";
 import Preloader from "../Components/Common/Preloader/Preloader.sx";
-import {Dispatch} from "redux";
+import {Action, Dispatch} from "redux";
 import {getUsers} from "../API/API";
+import {ThunkDispatch} from "redux-thunk";
 
 
 type mapStateToPropsType = {
@@ -95,7 +88,7 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     }
 }
 
-const mapDispatchToPRops = (dispatch: Dispatch): mapDispatchToPRopsType => {
+const mapDispatchToPRops = (dispatch:ThunkDispatch<AppRootStateType, void, Action>): mapDispatchToPRopsType => {
     return {
         follow: (usersId: number) => {
             dispatch(followAC(usersId))
@@ -115,8 +108,11 @@ const mapDispatchToPRops = (dispatch: Dispatch): mapDispatchToPRopsType => {
         toggleIsFetching: (isFetching: boolean) => {
             dispatch(isFetchingAC(isFetching))
         },
+        toogleFollowingProgres: (isFetching: boolean, userId: number) => {
+            dispatch(toogleFollowingProgresAC(isFetching, userId))
+        },
         getUsers: (currentPage: number, pageSize: number) => {
-            dispatch(getUsersThunkCreator(currentPage,pageSize))
+            dispatch(getUsersThunkCreator(currentPage, pageSize))
         }
     }
 }

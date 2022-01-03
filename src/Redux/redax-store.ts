@@ -16,8 +16,6 @@ let reducers = combineReducers({
 export const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 export type AppRootStateType = ReturnType<typeof reducers>
 
-export type AllAction = ActionTypes
-export type AppTypeAction = ThunkAction<void, AppRootStateType, unknown, AllAction>
 // @ts-ignore
 window.store = store;
 
