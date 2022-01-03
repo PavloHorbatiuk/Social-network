@@ -1,5 +1,5 @@
 export type DialogsType = typeof initialState
-let initialState = {
+export const initialState = {
     DialogsData: [
         {id: 1, name: 'Pall'},
         {id: 2, name: 'Artur'},

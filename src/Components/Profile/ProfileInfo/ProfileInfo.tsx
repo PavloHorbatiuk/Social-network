@@ -13,7 +13,7 @@ export const ProfileInfo = (props: ProfileInfoType) => {
         return <Preloader/>
     }
 
-    debugger
+
     return (<div>
             <div className={s.ProfileInfo}>
                 <img src='http://www.wpkixx.com/html/winku-dark/images/resources/timeline-1.jpg'/>
