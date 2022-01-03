@@ -1,3 +1,7 @@
+import {getUsers} from "../API/API";
+import {Dispatch} from "redux";
+import {AppTypeAction} from "./redax-store";
+
 export type DialogsType = typeof initialState
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
@@ -5,7 +9,8 @@ const SET_USERS = "SET-USERS"
 const SET_CURRENT_PAGE = "SET-CURRENT-PAGE"
 const SET_USERS_TOTAL_CUOUNT = "SET-USERS-TOTAL-COUNT"
 const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING"
-
+const TOGGLE_IS_FOLLOWING_PROGRESS = "TOGGLE-IS-FOLLOWING-PROGRESS"
+export type FollowingType = {}
 export type UserType = {
     id: number,
     photos: PhotosType
@@ -22,14 +27,16 @@ export const initialState: InitialStateType = {
     pageSize: 7,
     totalUserCount: 50,
     currentPage: 1,
-    isFetching: true
+    isFetching: true,
+    followingInProgres: [],
 };
 export type InitialStateType = {
     users: Array<UserType>,
     pageSize: number,
     totalUserCount: number,
     currentPage: number,
-    isFetching: boolean
+    isFetching: boolean,
+    followingInProgres: Array<FollowingType>,
 
 }
 
@@ -68,9 +75,26 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
         case TOGGLE_IS_FETCHING: {
             return {...state, isFetching: action.isFetching}
         }
+        case TOGGLE_IS_FOLLOWING_PROGRESS: {
+            return {
+                ...state,
+                followingInProgres: action.isFetching ?
+                    [...state.followingInProgres, action.userId] :
+                    [...state.followingInProgres.filter(id => id != action.userId)]
+            }
+        }
         default:
             return state;
     }
+}
+
+
+export const toogleFollowingProgresAC = (isFetching: boolean, userId: number) => {
+    return {
+        type: TOGGLE_IS_FOLLOWING_PROGRESS,
+        isFetching,
+        userId
+    } as const
 }
 export const followAC = (userId: number) => {
     return {
@@ -106,9 +130,9 @@ export const isFetchingAC = (isFetching: boolean) => {
     return {
         type: TOGGLE_IS_FETCHING,
         isFetching
-    }as const
+    } as const
 }
-
+type toogleFollowingProgresACType = ReturnType<typeof toogleFollowingProgresAC>
 type followACType = ReturnType<typeof followAC>
 type unFollowACType = ReturnType<typeof unFollowAC>
 type setUsersACACType = ReturnType<typeof setUsersAC>
@@ -124,3 +148,18 @@ export type ActionTypes =
     | setCurrentPageACType
     | setUsersTotalCountACType
     | isFetchingACType
+    | toogleFollowingProgresACType
+
+
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number): AppTypeAction => {
+    debugger
+    return (dispatch: Dispatch) => {
+        dispatch(isFetchingAC(true))
+        getUsers(currentPage, pageSize).then(data => {
+            dispatch(isFetchingAC(false))
+            dispatch(setUsersAC(data.items))
+            dispatch(setUsersTotalCountAC(data.totalCount));
+        })
+    }
+}
