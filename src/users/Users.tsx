@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import {FollowingType, UserType} from "../Redux/Users-reducer";
 import {NavLink} from 'react-router-dom';
 import axios from "axios";
-import { getUsersFollow, getUsersUnFollow} from "../API/API";
 
 export type PropsUsersPresentsTYpe = {
     onPageChanged: (pageNumber: number) => void
@@ -16,7 +15,6 @@ export type PropsUsersPresentsTYpe = {
     users: Array<UserType>
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    toogleFollowingProgres:(isFetching:boolean,id:number)=>void
     followingInProgres: Array<FollowingType>
 }
 
@@ -32,7 +30,7 @@ const Users = (props: PropsUsersPresentsTYpe) => {
             <div>
                 {pages.map(p => {
                     return <span
-                        className={props.currentPage === p ? s.selectedPageThin : s.selectedPageFat}
+                        className={props.currentPage === p ?s.selectedPageThin:s.selectedPageFat }
                         onClick={(e) => {
                             props.onPageChanged(p)
                         }}
@@ -49,44 +47,32 @@ const Users = (props: PropsUsersPresentsTYpe) => {
                             </NavLink>
                     </div>
                     <div>{u.followed ?
-                        <Button  variant="contained" size="small" disabled={props.followingInProgres.some(id=>id===u.id)} onClick={() => {
-                            props.toogleFollowingProgres(true,u.id)
-                            getUsersUnFollow(u.id).then(response => {
-                                if (response.data.resultCode === 0) {
-                                    props.unfollow(u.id)
-                                }
-                                props.toogleFollowingProgres(false, u.id)
-                            })
-
-                        }}
-                        >Unfollow</Button> :
-                        <Button variant="contained" size="small" disabled={props.followingInProgres.some(id=>id===u.id)} onClick={() => {
-                            props.toogleFollowingProgres(true, u.id)
-                            getUsersFollow(u.id).then(response => {
-                                if (response.data.resultCode === 0) {
-                                    props.follow(u.id)
-                                }
-                                props.toogleFollowingProgres(false, u.id)
-                            })
+                        <Button variant="contained" size="small"
+                                disabled={props.followingInProgres.some(id => id === u.id)} onClick={() => {
+                            props.unfollow(u.id)
+                        }}>Unfollow</Button> :
+                        <Button variant="contained" size="small"
+                                disabled={props.followingInProgres.some(id => id === u.id)} onClick={() => {
+                            props.follow(u.id)
                         }}
                         >Follow</Button>}
-                            </div>
-                            </span>
+                        </div>
+                        </span>
                         <span>
-                            <Typography mt={2}>
-                            <span>
-                            <div>{u.name}</div>
-                            <div>{u.status}</div>
-                            </span>
-                            <span>
-                            <div>{"u.location.country"}</div>
-                            <div>{"u.location.city"}</div>
-                            </span>
-                            </Typography>
-                            <span>
-                            <div>{u.id}</div>
-                            </span>
-                            </span>
+                        <Typography mt={2}>
+                        <span>
+                        <div>{u.name}</div>
+                        <div>{u.status}</div>
+                        </span>
+                        <span>
+                        <div>{"u.location.country"}</div>
+                        <div>{"u.location.city"}</div>
+                        </span>
+                        </Typography>
+                        <span>
+                        <div>{u.id}</div>
+                        </span>
+                        </span>
 
                     </div>
                 )

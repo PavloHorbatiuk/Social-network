@@ -2,16 +2,14 @@ import React from 'react';
 import {connect} from "react-redux";
 import {AppRootStateType} from "../Redux/redax-store";
 import {
+    followACSuccess,
     FollowingType, getUsersThunkCreator,
-    InitialStateType,
-    UserType,
-    followAC, unFollowAC, setCurrentPageAC, setUsersTotalCountAC, isFetchingAC, toogleFollowingProgresAC, setUsersAC
+    InitialStateType, setCurrentPageAC, toogleFollowingProgresAC, unFollowACSuccess
 } from "../Redux/Users-reducer";
 import axios from "axios";
 import Users from "./Users";
 import Preloader from "../Components/Common/Preloader/Preloader.sx";
-import {Action, Dispatch} from "redux";
-import {getUsers} from "../API/API";
+import {Action} from "redux";
 import {ThunkDispatch} from "redux-thunk";
 
 
@@ -26,35 +24,20 @@ type mapStateToPropsType = {
 type mapDispatchToPRopsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    setUsers: (users: Array<UserType>) => void
     setCurrentPage: (pageNumber: number) => void
-    setTotalUsersCount: (totalCount: number) => void,
-    toggleIsFetching: (isFetching: boolean) => void,
     toogleFollowingProgres: (isFetching: boolean, userId: number) => void,
-    getUsers: (currentPage: number, pageSize: number) => void
+    getUsersThunkCreator: (currentPage: number, pageSize: number) => void
 }
 
 export type UsersPropsType = mapDispatchToPRopsType & mapStateToPropsType;
 
 class UsersContainer extends React.Component<UsersPropsType, InitialStateType> {
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
-        // this.props.toggleIsFetching(true)
-        // getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-        //     this.props.toggleIsFetching(false)
-        //     this.props.setUsers(data.items);
-        //     this.props.setTotalUsersCount(data.totalCount);
-        // })
+        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize);
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.setCurrentPage(pageNumber);
-        this.props.toggleIsFetching(true)
-        getUsers(pageNumber, this.props.pageSize)
-            .then(data => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(data.items)
-            })
+        this.props.getUsersThunkCreator(pageNumber, this.props.pageSize);
     }
 
     render() {
@@ -69,7 +52,6 @@ class UsersContainer extends React.Component<UsersPropsType, InitialStateType> {
                 users={this.props.usersPage.users}
                 follow={this.props.follow}
                 unfollow={this.props.unfollow}
-                toogleFollowingProgres={this.props.toogleFollowingProgres}
                 followingInProgres={this.props.followingInProgres}
 
             />
@@ -88,30 +70,21 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     }
 }
 
-const mapDispatchToPRops = (dispatch:ThunkDispatch<AppRootStateType, void, Action>): mapDispatchToPRopsType => {
+const mapDispatchToPRops = (dispatch: ThunkDispatch<AppRootStateType, void, Action>): mapDispatchToPRopsType => {
     return {
         follow: (usersId: number) => {
-            dispatch(followAC(usersId))
+            dispatch(followACSuccess(usersId))
         },
         unfollow: (userId: number) => {
-            dispatch(unFollowAC(userId))
-        },
-        setUsers: (users: Array<UserType>) => {
-            dispatch(setUsersAC(users));
+            dispatch(unFollowACSuccess(userId))
         },
         setCurrentPage: (pageNumber: number) => {
             dispatch(setCurrentPageAC(pageNumber))
         },
-        setTotalUsersCount: (totalCount: number) => {
-            dispatch(setUsersTotalCountAC(totalCount))
-        },
-        toggleIsFetching: (isFetching: boolean) => {
-            dispatch(isFetchingAC(isFetching))
-        },
         toogleFollowingProgres: (isFetching: boolean, userId: number) => {
             dispatch(toogleFollowingProgresAC(isFetching, userId))
         },
-        getUsers: (currentPage: number, pageSize: number) => {
+        getUsersThunkCreator: (currentPage: number, pageSize: number) => {
             dispatch(getUsersThunkCreator(currentPage, pageSize))
         }
     }

@@ -1,6 +1,6 @@
-import {getUsers} from "../API/API";
 import {Dispatch} from "redux";
-import {AppTypeAction} from "./redax-store";
+import {userAPI} from "../API/API";
+
 
 export type DialogsType = typeof initialState
 const FOLLOW = "FOLLOW"
@@ -96,13 +96,13 @@ export const toogleFollowingProgresAC = (isFetching: boolean, userId: number) =>
         userId
     } as const
 }
-export const followAC = (userId: number) => {
+export const followACSuccess = (userId: number) => {
     return {
         type: FOLLOW,
         userId,
     } as const
 }
-export const unFollowAC = (userId: number) => {
+export const unFollowACSuccess = (userId: number) => {
     return {
         type: UNFOLLOW,
         userId
@@ -133,8 +133,8 @@ export const isFetchingAC = (isFetching: boolean) => {
     } as const
 }
 type toogleFollowingProgresACType = ReturnType<typeof toogleFollowingProgresAC>
-type followACType = ReturnType<typeof followAC>
-type unFollowACType = ReturnType<typeof unFollowAC>
+type followACType = ReturnType<typeof followACSuccess>
+type unFollowACType = ReturnType<typeof unFollowACSuccess>
 type setUsersACACType = ReturnType<typeof setUsersAC>
 type setCurrentPageACType = ReturnType<typeof setCurrentPageAC>
 type setUsersTotalCountACType = ReturnType<typeof setUsersTotalCountAC>
@@ -151,15 +151,35 @@ export type ActionTypes =
     | toogleFollowingProgresACType
 
 
-
-export const getUsersThunkCreator = (currentPage: number, pageSize: number): AppTypeAction => {
-    debugger
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
     return (dispatch: Dispatch) => {
         dispatch(isFetchingAC(true))
-        getUsers(currentPage, pageSize).then(data => {
+        userAPI.getUsers(currentPage, pageSize).then(data => {
             dispatch(isFetchingAC(false))
             dispatch(setUsersAC(data.items))
             dispatch(setUsersTotalCountAC(data.totalCount));
+        })
+    }
+}
+export const follow = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toogleFollowingProgresAC(true, userId))
+        userAPI.getUsersFollow(userId).then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(followACSuccess(userId))
+            }
+            dispatch(toogleFollowingProgresAC(false, userId))
+        })
+    }
+}
+export const unFollow = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        toogleFollowingProgresAC(true, userId)
+        userAPI.getUsersUnFollow(userId).then(response => {
+            if (response.data.resultCode === 0) {
+                unFollowACSuccess(userId)
+            }
+            toogleFollowingProgresAC(false, userId)
         })
     }
 }
