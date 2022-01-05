@@ -2,17 +2,18 @@ import React from 'react';
 import s from './ProfileInfo.module.css';
 import Preloader from "../../Common/Preloader/Preloader.sx";
 import {getAxiosProfileType} from "../../../Redux/Profile-reducer";
+import ProfileStatus from "./ProfileStatus";
 
 
 type ProfileInfoType = {
     profile: null | getAxiosProfileType
+
 }
 
-export const ProfileInfo = (props: ProfileInfoType) => {
+export function ProfileInfo(props: ProfileInfoType) {
     if (!props.profile) {
         return <Preloader/>
     }
-
 
     return (<div>
             <div className={s.ProfileInfo}>
@@ -25,6 +26,7 @@ export const ProfileInfo = (props: ProfileInfoType) => {
                     <li><span>{props.profile.contacts.github}</span></li>
                     <li><span>{props.profile.contacts.facebook}</span></li>
                     <li><span>{props.profile.contacts.instagram}</span></li>
+                    <ProfileStatus status={"hello"}/>
                 </ul>
             </div>
         </div>

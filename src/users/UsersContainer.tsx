@@ -9,8 +9,9 @@ import {
 import axios from "axios";
 import Users from "./Users";
 import Preloader from "../Components/Common/Preloader/Preloader.sx";
-import {Action} from "redux";
+import {Action, compose} from "redux";
 import {ThunkDispatch} from "redux-thunk";
+import {withAuthRedirect} from "../hoc/withAuthRedirect";
 
 
 type mapStateToPropsType = {
@@ -90,4 +91,5 @@ const mapDispatchToPRops = (dispatch: ThunkDispatch<AppRootStateType, void, Acti
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToPRops)(UsersContainer)
+export default compose<React.ComponentType>(withAuthRedirect, connect(mapStateToProps, mapDispatchToPRops),
+)(UsersContainer);

@@ -4,11 +4,11 @@ import s from './App.module.css';
 import style from './Content.module.css';
 import {BrowserRouter, Route} from "react-router-dom";
 import {SideBarFriends} from "./Components/SideBarFriends/SideBarFriends";
-import DialogsContainer  from "./Components/Dialogs/Message/DialogsContainer";
 import UsersContainer from "./users/UsersContainer";
-import ProfileContainer from "./Components/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import {LoginPage} from "./Components/Login/login";
+import DialogsContainer from "./Components/Dialogs/Message/DialogsContainer";
+import ProfileContainer from "./Components/Profile/ProfileContainer";
 
 
 export type AppPropsType = {}

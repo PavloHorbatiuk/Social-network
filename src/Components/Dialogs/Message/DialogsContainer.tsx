@@ -1,14 +1,14 @@
-import { useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType, store} from "../../../Redux/redax-store";
 import {DialogsType, sendMessageBodyAC, updateNewMessageBodyAC} from "../../../Redux/Dialogs-reducer";
 import {Dialogs} from "../Dialogs";
-import  {AuthType} from "../../../Redux/Auth-reducer";
+import {AuthType} from "../../../Redux/Auth-reducer";
 import React from "react";
 import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
-
-function DialogsContainer  () {
+function DialogsContainer() {
     const dispatch = useDispatch();
     const dialogsMessage = useSelector<AppRootStateType, DialogsType>(state => state.dialogsReducer)
     const isAuthLogin = useSelector<AppRootStateType, AuthType>(state => state.authReducer)
@@ -17,7 +17,7 @@ function DialogsContainer  () {
         dispatch(sendMessageBodyAC());
 
     }
-    const onNewChangeNewBody = (body:string) => {
+    const onNewChangeNewBody = (body: string) => {
         dispatch(updateNewMessageBodyAC(body));
     }
     return (
@@ -25,8 +25,10 @@ function DialogsContainer  () {
             isAuth={isAuthLogin.isAuth}
             onNewChangeNewBody={onNewChangeNewBody}
             addChatContainer={addChatContainer}
-
         />
-            )
+    )
 }
-export default withAuthRedirect( DialogsContainer)
+
+export default compose(
+    withAuthRedirect
+)(DialogsContainer)
