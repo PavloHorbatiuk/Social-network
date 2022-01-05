@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {userAPI} from "../API/API";
+
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
 const SET_USERS_PROFILE = "SET-USERS-PROFILE";
@@ -94,3 +97,8 @@ type ActionTypes = AddPostActionCreatorType
     | setUsersProfileActionCreatorType
 
 
+export const getUsersProfile=(userId:string)=>(dispatch:Dispatch)=>{
+    userAPI.getProfile(userId).then(response => {
+        dispatch(setUserProfileAC(response.data))
+    })
+}

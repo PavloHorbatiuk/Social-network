@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import {FollowingType, UserType} from "../Redux/Users-reducer";
 import {NavLink} from 'react-router-dom';
 import axios from "axios";
+import {log} from "util";
 
 export type PropsUsersPresentsTYpe = {
     onPageChanged: (pageNumber: number) => void
@@ -25,12 +26,13 @@ const Users = (props: PropsUsersPresentsTYpe) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
+    console.log(props.currentPage)
     return (
         <div>
             <div>
                 {pages.map(p => {
                     return <span
-                        className={props.currentPage === p ?s.selectedPageThin:s.selectedPageFat }
+                        className={props.currentPage === p ?s.selectedPageThin:s.selectedPageFat}
                         onClick={(e) => {
                             props.onPageChanged(p)
                         }}

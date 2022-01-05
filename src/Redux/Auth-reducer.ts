@@ -1,4 +1,5 @@
-import {stringify} from "querystring";
+import {Dispatch} from "redux";
+import {authAPI} from "../API/API";
 
 const SET_USER_DATA = "SET-USER-DATA";
 
@@ -6,6 +7,9 @@ export type  DataType = {
     id: number,
     email: string,
     login: string,
+}
+export type isAuthType={
+    isAuth: boolean
 }
 export type AuthType = typeof initialState
 export const initialState = {
@@ -36,7 +40,14 @@ export const setUserDataAC = (id:null, login:null, email:null) => {
         data: {id, email, login}
     } as const
 }
-
+export const getUserData=()=>(dispatch:Dispatch)=>{
+    authAPI.me().then(response => {
+        if (response.data.resultCode === 0) {
+            dispatch(setUserDataAC(response.data.data.id, response.data.data.login,
+                response.data.data.email))
+        }
+    })
+}
 
 type setUserDataACType = ReturnType<typeof setUserDataAC>
 type ActionAuthType = setUserDataACType

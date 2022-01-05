@@ -15,9 +15,11 @@ export const userAPI = {
             .then(response => {
                 return response.data;
             })
-    }, getUsersFollow(id = 1) {
+    },
+    getUsersFollow(id = 1) {
         return instance.post(`follow/${id}`)
-    }, getUsersUnFollow(id = 1) {
+    },
+    getUsersUnFollow(id = 1) {
         return instance.delete(`follow/${id}`)
     },
     getProfile(userId: string) {
@@ -27,6 +29,6 @@ export const userAPI = {
 
 export const authAPI = {
     me() {
-        return instance.get(`auth/me` )
+        return instance.get(`auth/me`)
     }
 }

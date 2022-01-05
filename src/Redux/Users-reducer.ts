@@ -64,7 +64,11 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
                 })
             }
         case SET_USERS: {
-            return {...state, users: action.users}
+            console.log(action.users);
+            const test = action.users.reverse()
+            console.log(action.users.reverse())
+            debugger
+            return {...state, users: action.users.reverse()}
         }
         case SET_CURRENT_PAGE: {
             return {...state, currentPage: action.currentPage}
@@ -155,6 +159,8 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
     return (dispatch: Dispatch) => {
         dispatch(isFetchingAC(true))
         userAPI.getUsers(currentPage, pageSize).then(data => {
+
+            dispatch(setCurrentPageAC(currentPage))
             dispatch(isFetchingAC(false))
             dispatch(setUsersAC(data.items))
             dispatch(setUsersTotalCountAC(data.totalCount));

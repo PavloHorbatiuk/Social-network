@@ -1,17 +1,19 @@
 import React from 'react';
 import {Header} from "./Header";
 import axios from "axios";
-import {AuthType, setUserDataAC} from "../../Redux/Auth-reducer";
+import {AuthType, getUserData, setUserDataAC} from "../../Redux/Auth-reducer";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../../Redux/redax-store";
 import {authAPI} from "../../API/API";
+import {getElementError} from "@testing-library/react";
 
 
 type maDispatchType = {
-    setUserDataAC: (id: null,
-                    email: null,
-                    login: null) => void
+    // setUserDataAC: (id: null,
+    //                 email: null,
+    //                 login: null) => void
+    getUserData:()=>void
 };
 type mapStateToPropsType = {
     isAuth: boolean,
@@ -22,12 +24,7 @@ export type HeaderContainerType = maDispatchType & mapStateToPropsType
 class HeaderContainer extends React.Component<HeaderContainerType, AuthType> {
     componentDidMount() {
 
-        authAPI.me().then(response => {
-            if (response.data.resultCode === 0) {
-                this.props.setUserDataAC(response.data.data.id, response.data.data.login,
-                    response.data.data.email)
-            }
-        })
+        this.props.getUserData()
     }
 
     render() {
@@ -37,13 +34,14 @@ class HeaderContainer extends React.Component<HeaderContainerType, AuthType> {
     }
 }
 
-let mapDispatchToProps = (dispatch: Dispatch): maDispatchType => {
-    return {
-        setUserDataAC: (id, email, login) => {
-            dispatch(setUserDataAC(id, email, login))
-        }
-    }
-}
+// let mapDispatchToProps = (dispatch: Dispatch): maDispatchType => {
+//     return {
+//         setUserDataAC: (id, email, login) => {
+//             dispatch(setUserDataAC(id, email, login))
+//         }
+//     }
+//     }
+// }
 
 let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     return {
@@ -53,4 +51,4 @@ let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer)
+export default connect(mapStateToProps,{getUserData} )(HeaderContainer)
