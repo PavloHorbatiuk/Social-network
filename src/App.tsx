@@ -23,6 +23,7 @@ const App: React.FC<AppPropsType> = (props: AppPropsType) => {
                     <SideBarFriends/>
                 </div>
                 <div className={style.content}>
+                    {/* <Route path='/Social-network' render={()=><ProfileContainer/>}/> */}
                     <Route path='/dialogs' render={() =>
                         <DialogsContainer/>}/>
                     <Route path='/profile/:userId?'

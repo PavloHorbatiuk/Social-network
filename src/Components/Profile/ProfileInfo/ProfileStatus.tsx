@@ -16,7 +16,7 @@ class ProfileStatus extends React.Component<ProfileStatusType> {
     }
 
     render() {
-        {
+        
             return <>
                 <div>
                     {!this.state.editMode &&
@@ -34,7 +34,7 @@ class ProfileStatus extends React.Component<ProfileStatusType> {
                     }
                 </div>
             </>
-        }
+        
     }
 }
 
