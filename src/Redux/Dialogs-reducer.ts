@@ -1,3 +1,5 @@
+import {AddmessageFormType} from "../Components/Dialogs/Dialogs";
+
 export type DialogsType = typeof initialState
 export const initialState = {
     DialogsData: [
@@ -13,44 +15,31 @@ export const initialState = {
         {id: 2, message: 'How are you'},
         {id: 3, message: 'Yo'},
     ],
-    newMessageBody: '',
 };
 
 
 export const dialogsReducer = (state: DialogsType = initialState, action: ActionTypes): typeof initialState => {
     switch (action.type) {
-        case "UPDATE_NEW_MESSAGE_BODY":
-            return {
-                ...state,
-                newMessageBody: action.body
-            };
         case "SEND_MESSAGE_BODY":
-            let body = state.newMessageBody
+            let body = action.newMessageBody
             return {
                 ...state,
-                newMessageBody: '',
                 MessagesData: [...state.MessagesData, {id: 6, message: body}]
             };
         default:
             return state;
     }
 }
-export const sendMessageBodyAC = () => {
+export const sendMessageBodyAC = (newMessageBody: string) => {
     return {
-        type: "SEND_MESSAGE_BODY"
-    } as const
-}
-export const updateNewMessageBodyAC = (body: string) => {
-    return {
-        type: "UPDATE_NEW_MESSAGE_BODY",
-        body: body
+        type: "SEND_MESSAGE_BODY",
+        newMessageBody: newMessageBody
+
     } as const
 }
 
 type SendMessageBodyCreatorActionCreatorType = ReturnType<typeof sendMessageBodyAC>
-type updateNewMessageBodyCreatorActionCreatorType = ReturnType<typeof updateNewMessageBodyAC>
 
 
-type ActionTypes =
-    SendMessageBodyCreatorActionCreatorType
-    | updateNewMessageBodyCreatorActionCreatorType
+type ActionTypes = SendMessageBodyCreatorActionCreatorType
+

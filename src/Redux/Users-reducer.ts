@@ -67,8 +67,7 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
             console.log(action.users);
             const test = action.users.reverse()
             console.log(action.users.reverse())
-            debugger
-            return {...state, users: action.users.reverse()}
+            return {...state, users: action.users}
         }
         case SET_CURRENT_PAGE: {
             return {...state, currentPage: action.currentPage}

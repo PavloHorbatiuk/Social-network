@@ -7,8 +7,7 @@ import {ProfileType} from "../../Redux/Profile-reducer";
 import {SideType} from "../../Redux/sidebar-reducer";
 
 
-type SideBarFriendsType = {
-}
+type SideBarFriendsType = {}
 const FriendsItem = (props: any) => {
     let path = '/profile/' + props.id;
     return (

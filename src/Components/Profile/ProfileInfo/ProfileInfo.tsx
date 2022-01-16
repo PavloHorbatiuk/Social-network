@@ -7,8 +7,8 @@ import ProfileStatus from "./ProfileStatus";
 
 type ProfileInfoType = {
     profile: null | getAxiosProfileType
-    status:string
-    updateStatus:(status:string)=>void
+    status: string
+    updateStatus: (status: string) => void
 
 }
 
@@ -16,13 +16,10 @@ export function ProfileInfo(props: ProfileInfoType) {
     if (!props.profile) {
         return <Preloader/>
     }
-    // if(!props.status){
-    //     return<Preloader/>
-    // }
 
-    return (<div>
+    return (<div className={s.ProfileStyle}>
             <div className={s.ProfileInfo}>
-                <img src='http://www.wpkixx.com/html/winku-dark/images/resources/timeline-1.jpg' alt="headerPicture"/>
+                {/*<img src='http://www.wpkixx.com/html/winku-dark/images/resources/timeline-1.jpg' alt="headerPicture"/>*/}
             </div>
             <div>
                 <img className={s.img} src={props.profile.photos.small} alt="ProfileFoto"/>
@@ -31,7 +28,9 @@ export function ProfileInfo(props: ProfileInfoType) {
                     <li><span>{props.profile.contacts.github}</span></li>
                     <li><span>{props.profile.contacts.facebook}</span></li>
                     <li><span>{props.profile.contacts.instagram}</span></li>
-                    <ProfileStatus status={props.status}/>
+                    <ProfileStatus
+                        updateStatus={props.updateStatus}
+                        status={props.status}/>
                 </ul>
             </div>
         </div>

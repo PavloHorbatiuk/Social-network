@@ -1,4 +1,15 @@
 .posts {
     margin-top: 10px;
    }
+.inputStyle {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #555;
+    outline: none;
+}
 
+.inputStyle:focus {
+    background-color: lightblue;
+}

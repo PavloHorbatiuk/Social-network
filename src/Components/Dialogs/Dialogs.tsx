@@ -1,15 +1,18 @@
-import React, {ChangeEvent, KeyboardEvent} from 'react';
 import {NavLink, Redirect} from 'react-router-dom';
 import s from './Dialogs.module.css'
 import {Message} from './Message/Message';
-import {Button, TextField} from "@mui/material";
 import {AppRootStateType} from "../../Redux/redax-store";
 import {useSelector} from "react-redux";
 import {DialogsType} from "../../Redux/Dialogs-reducer";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
+
+
+export type AddmessageFormType = {
+    newMessageBody: string;
+}
 
 type dialogsType = {
-    addChatContainer: () => void
-    onNewChangeNewBody: (body: string) => void
+    addChatContainer: (newMessageBody: string) => void
     isAuth: boolean
 }
 const DialogsItems = (props: any) => {
@@ -20,29 +23,16 @@ const DialogsItems = (props: any) => {
         </div>
     )
 }
-
-
 export const Dialogs = (props: dialogsType) => {
     const dialogsMessage = useSelector<AppRootStateType, DialogsType>(state => state.dialogsReducer)
     let DialogsElements = dialogsMessage.DialogsData.map(d => <DialogsItems name={d.name}
                                                                             id={d.id}/>);
     let messagesElement = dialogsMessage.MessagesData.map(m => <Message message={m.message}/>);
 
-    const addChat = () => {
-        props.addChatContainer()
+    const addNewMessage = (inputData: AddmessageFormType) => {
+        props.addChatContainer(inputData.newMessageBody)
     }
-    const sendMButton = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.charCode === 13) {
-            addChat();
-        }
-    }
-    const onChangeNewBody = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        debugger
-        let body = e.currentTarget.value
-        props.onNewChangeNewBody(body)
-
-    }
-    if (!props.isAuth ) return<Redirect to={"/Login"}/>
+    if (!props.isAuth) return <Redirect to={"/Login"}/>
     return (
         <div className={s.dialogs}>
             <div className={s.dialogItems}>
@@ -50,17 +40,29 @@ export const Dialogs = (props: dialogsType) => {
             </div>
             <div className={s.messages}>
                 <div>{messagesElement}</div>
-                <div>
-                    <div><TextField
-                        id="outlined-basic"
-                        label="Введите текст"
-                        variant="outlined"
-                        onKeyPress={sendMButton}
-                        value={dialogsMessage.newMessageBody}
-                        onChange={onChangeNewBody}/></div>
-                    <div><Button variant="contained" onClick={addChat}>Sent</Button></div>
-                </div>
+                <AddmessageFormRedux onSubmit={addNewMessage}/>
             </div>
         </div>
     )
 }
+
+const AddMessageForm: React.FC<InjectedFormProps<AddmessageFormType>> = (props) => {
+
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field className={s.inputStyle} component='input' name="newMessageBody"
+                       placeholder="Enter your message"/>
+            </div>
+            <div>
+                <button className={s.button}
+                >Sent
+                </button>
+            </div>
+        </form>
+    )
+}
+
+const AddmessageFormRedux = reduxForm<AddmessageFormType>({
+    form: 'dialogAddMessageForm'
+})(AddMessageForm)

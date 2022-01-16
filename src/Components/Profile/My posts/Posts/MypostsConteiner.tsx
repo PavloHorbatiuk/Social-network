@@ -4,14 +4,13 @@ import {
     addPostActionCreator,
     onPostChangeActionCreator,
 } from "../../../../Redux/Profile-reducer";
-import { useDispatch} from "react-redux";
-
+import {useDispatch} from "react-redux";
 
 
 const MyPostsContainer = () => {
     const dispatch = useDispatch();
-    let addPost = () => {
-        dispatch(addPostActionCreator())
+    let addPost = (myPosts: string) => {
+        dispatch(addPostActionCreator(myPosts))
     }
     const onPostChangeContainer = (newText: string) => {
         dispatch(onPostChangeActionCreator(newText))

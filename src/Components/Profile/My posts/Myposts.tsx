@@ -1,16 +1,20 @@
 import React, {ChangeEvent, KeyboardEvent} from 'react';
 import {Posts} from './Posts/Posts';
 import s from './MyPosts.module.css';
-import {Button, TextField, Typography} from "@mui/material";
+import {Button} from "@mui/material";
 import {AppRootStateType} from "../../../Redux/redax-store";
 import {ProfileType} from "../../../Redux/Profile-reducer";
 import {useSelector} from "react-redux";
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {AddmessageFormType} from "../../Dialogs/Dialogs";
 
+
+type AddPostFormType = {
+    myPosts: string
+}
 
 type MyPostsType = {
-    addPost: () => void
+    addPost: (myPosts: string) => void
     onPostChangeContainer: (newText: string) => void
 }
 
@@ -18,53 +22,42 @@ type MyPostsType = {
 export const MyPosts = (props: MyPostsType) => {
     const profilePage = useSelector<AppRootStateType, ProfileType>(state => state.profileReducer)
     let postsElement = profilePage.MyPostsData.map(m => <Posts message={m.message}
-                                                                           LikesCount={m.LikesCount}/>)
-    let onAddPost = () => {
-        props.addPost();
-    }
-    const onPostChange = (e: ChangeEvent<HTMLInputElement>) => {
-        let newText = e.currentTarget.value;
-        props.onPostChangeContainer(newText)
-    }
-    const onkeypressButton = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.charCode === 13) {
-            onAddPost()
-        }
-    }
-    return <div>
+                                                               LikesCount={m.LikesCount}/>)
 
-        <Typography variant="subtitle1" gutterBottom component="div">
-            <div className={s.posts}>
-                <Box sx={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    '& > :not(style)': {
-                        m: 1,
-                      width:1000
-                    },
-                }} >
-                    <Paper  elevation={3}>
+    const addPost = (inputData: AddPostFormType) => {
+        props.addPost(inputData.myPosts)
+    }
+    return (
+        <div className={s.posts}>
+            <div>
                 {postsElement}
-                    </Paper>
-                </Box>
             </div>
-        </Typography>
-        <div>
-            <div>
-                <TextField
-                    id="outlined-basic"
-                    label="Введите текст"
-                    variant="outlined"
-                    onKeyPress={onkeypressButton}
-                    value={profilePage.postProfile}
-                    onChange={onPostChange}/>
-            </div>
-            <div>
-                <Button onClick={onAddPost}>Add post</Button>
-            </div>
+            <AddPostFormRedux onSubmit={addPost}/>
         </div>
-
-    </div>
+    )
 }
 
+export const MypostsForm: React.FC<InjectedFormProps<AddPostFormType>> = (props) => {
 
+
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <div><Field
+                    className={s.inputStyle}
+                    component='input'
+                    name='myPosts'
+                    placeholder="Enter your message"
+                />
+                </div>
+                <div>
+                    <Button>Add post</Button>
+                </div>
+            </div>
+        </form>
+    )
+}
+
+const AddPostFormRedux = reduxForm<AddPostFormType>({
+    form: 'addPostForm'
+})(MypostsForm)

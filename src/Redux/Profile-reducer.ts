@@ -1,8 +1,7 @@
-import { Dispatch } from "redux";
-import { profileAPI, userAPI } from "../API/API";
+import {Dispatch} from "redux";
+import {profileAPI, userAPI} from "../API/API";
 
 const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
 const SET_USERS_PROFILE = "SET-USERS-PROFILE";
 const SET_STATUS = "SET-STATUS";
 
@@ -40,11 +39,10 @@ export type ProfileType = typeof initialState
 
 export const initialState = {
     MyPostsData: [
-        { id: 1, message: 'Hello my friend', LikesCount: '12' },
-        { id: 2, message: 'This is my first post', LikesCount: '10' },
-        { id: 3, message: 'DaDa', LikesCount: '10' },
+        {id: 1, message: 'Hello my friend', LikesCount: '12'},
+        {id: 2, message: 'This is my first post', LikesCount: '10'},
+        {id: 3, message: 'DaDa', LikesCount: '10'},
     ],
-    postProfile: "",
     profile: null,
     status: '',
 };
@@ -54,19 +52,15 @@ export const profileReducer = (state: ProfileType = initialState, action: Action
         case ADD_POST: {
             let newPost = {
                 id: new Date().getTime(),
-                message: state.postProfile,
+                message: action.myPosts,
                 LikesCount: "0"
             }
             return {
                 ...state,
                 MyPostsData: [...state.MyPostsData, newPost],
-                postProfile: ''
-
             }
         }
-        case UPDATE_NEW_POST_TEXT: {
-            return { ...state, postProfile: action.newText }
-        }
+
         case SET_STATUS: {
             return {
                 ...state,
@@ -74,15 +68,16 @@ export const profileReducer = (state: ProfileType = initialState, action: Action
             }
         }
         case SET_USERS_PROFILE: {
-            return { ...state, profile: action.profile }
+            return {...state, profile: action.profile}
         }
         default:
             return state;
     }
 }
-export const addPostActionCreator = () => {
+export const addPostActionCreator = (myPosts: string) => {
     return {
-        type: "ADD-POST"
+        type: "ADD-POST",
+        myPosts
     } as const
 }
 export const setUserProfileAC = (profile: null) => {
@@ -114,7 +109,7 @@ type ActionTypes = AddPostActionCreatorType
 
 
 export const getUsersProfile = (userId: string) => (dispatch: Dispatch) => {
-    
+
     userAPI.getProfile(userId)
         .then(response => {
             dispatch(setUserProfileAC(response.data))
@@ -123,7 +118,6 @@ export const getUsersProfile = (userId: string) => (dispatch: Dispatch) => {
 export const getStatus = (userId: string) => (dispatch: Dispatch) => {
     profileAPI.getStatus(userId)
         .then(response => {
-            debugger
             dispatch(setStatusAC(response.data))
         })
 }
