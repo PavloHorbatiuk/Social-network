@@ -6,7 +6,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { SideBarFriends } from "./Components/SideBarFriends/SideBarFriends";
 import UsersContainer from "./users/UsersContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
-import Login  from "./Components/Login/Login";
+import Login from "./Components/Login/Login";
 import DialogsContainer from "./Components/Dialogs/Message/DialogsContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 
@@ -14,7 +14,6 @@ import ProfileContainer from "./Components/Profile/ProfileContainer";
 export type AppPropsType = {}
 
 const App: React.FC<AppPropsType> = (props: AppPropsType) => {
-
 
 
     return (

@@ -1,5 +1,5 @@
-import {Dispatch} from "redux";
-import {userAPI} from "../API/API";
+import { Dispatch } from "redux";
+import { userAPI } from "../API/API";
 
 
 export type DialogsType = typeof initialState
@@ -48,7 +48,7 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
                 ...state,
                 users: state.users.map(u => {
                     if (u.id === action.userId) {
-                        return {...u, followed: true}
+                        return { ...u, followed: true }
                     }
                     return u;
                 })
@@ -58,7 +58,7 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
                 ...state,
                 users: state.users.map(u => {
                     if (u.id === action.userId) {
-                        return {...u, followed: false}
+                        return { ...u, followed: false }
                     }
                     return u;
                 })
@@ -67,16 +67,16 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
             console.log(action.users);
             const test = action.users.reverse()
             console.log(action.users.reverse())
-            return {...state, users: action.users}
+            return { ...state, users: action.users }
         }
         case SET_CURRENT_PAGE: {
-            return {...state, currentPage: action.currentPage}
+            return { ...state, currentPage: action.currentPage }
         }
         case SET_USERS_TOTAL_CUOUNT: {
-            return {...state, totalUserCount: action.totalCount}
+            return { ...state, totalUserCount: action.totalCount }
         }
         case TOGGLE_IS_FETCHING: {
-            return {...state, isFetching: action.isFetching}
+            return { ...state, isFetching: action.isFetching }
         }
         case TOGGLE_IS_FOLLOWING_PROGRESS: {
             return {

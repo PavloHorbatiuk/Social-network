@@ -1,30 +1,28 @@
-import React from 'react';
-import {MyPosts} from "../Myposts";
+import React from "react";
+import { MyPosts } from "../Myposts";
 import {
-    addPostActionCreator,
-    onPostChangeActionCreator,
+  addPostActionCreator,
+  onPostChangeActionCreator,
 } from "../../../../Redux/Profile-reducer";
-import {useDispatch} from "react-redux";
-
+import { useDispatch } from "react-redux";
 
 const MyPostsContainer = () => {
-    const dispatch = useDispatch();
-    let addPost = (myPosts: string) => {
-        dispatch(addPostActionCreator(myPosts))
-    }
-    const onPostChangeContainer = (newText: string) => {
-        dispatch(onPostChangeActionCreator(newText))
+  const dispatch = useDispatch();
+  let addPost = (myPosts: string) => {
+    dispatch(addPostActionCreator(myPosts));
+  };
+  const onPostChangeContainer = (newText: string) => {
+    dispatch(onPostChangeActionCreator(newText));
+  };
 
-    }
+  return (
+    <div>
+      <MyPosts
+        addPost={addPost}
+        onPostChangeContainer={onPostChangeContainer}
+      />
+    </div>
+  );
+};
 
-    return (<div>
-            <MyPosts
-                addPost={addPost}
-                onPostChangeContainer={onPostChangeContainer}
-            />
-        </div>
-    )
-}
-
-
-export default MyPostsContainer
+export default MyPostsContainer;
