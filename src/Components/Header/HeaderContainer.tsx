@@ -1,12 +1,13 @@
 import React from 'react';
 import {Header} from "./Header";
 import axios from "axios";
-import {AuthType, getUserData, setUserDataAC} from "../../Redux/Auth-reducer";
+import {AuthType, getUserData, LogOut, setUserDataAC} from "../../Redux/Auth-reducer";
 import {connect} from "react-redux";
-import {Dispatch} from "redux";
 import {AppRootStateType} from "../../Redux/redax-store";
-import {authAPI} from "../../API/API";
-import {getElementError} from "@testing-library/react";
+import {Logout} from "@mui/icons-material";
+
+
+;
 
 
 type maDispatchType = {
@@ -14,10 +15,13 @@ type maDispatchType = {
     //                 email: null,
     //                 login: null) => void
     getUserData:()=>void
+    LogOut:()=>void
+
 };
 type mapStateToPropsType = {
     isAuth: boolean,
     Login: null | string
+
 }
 export type HeaderContainerType = maDispatchType & mapStateToPropsType
 
@@ -51,4 +55,4 @@ let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
 }
 
 
-export default connect(mapStateToProps,{getUserData} )(HeaderContainer)
+export default connect(mapStateToProps,{getUserData,LogOut} )(HeaderContainer)
