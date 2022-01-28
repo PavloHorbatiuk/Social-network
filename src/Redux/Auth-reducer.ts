@@ -22,10 +22,7 @@ export const initialState = {
     isAuth: false,
 };
 
-const authReducer = (
-    state: AuthType = initialState,
-    action: ActionAuthType
-): typeof initialState => {
+const authReducer = (state: AuthType = initialState, action: ActionAuthType ): typeof initialState => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -49,7 +46,7 @@ export const setUserDataAC = (
     } as const;
 };
 export const getUserData = () => (dispatch: Dispatch) => {
-    authAPI.me().then((response) => {
+    return  authAPI.me().then((response) => {
         if (response.data.resultCode === 0) {
             dispatch(
                 setUserDataAC(

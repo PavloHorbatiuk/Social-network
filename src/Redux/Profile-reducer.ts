@@ -1,5 +1,5 @@
-import {Dispatch} from "redux";
-import {profileAPI, userAPI} from "../API/API";
+import { Dispatch } from "redux";
+import { profileAPI, userAPI } from "../API/API";
 
 const ADD_POST = "ADD-POST";
 const SET_USERS_PROFILE = "SET-USERS-PROFILE";
@@ -37,9 +37,9 @@ export type ProfileType = typeof initialState;
 
 export const initialState = {
     MyPostsData: [
-        {id: 1, message: "Hello my friend", LikesCount: "12"},
-        {id: 2, message: "This is my first post", LikesCount: "10"},
-        {id: 3, message: "DaDa", LikesCount: "10"},
+        { id: 1, message: "Hello my friend", LikesCount: "12" },
+        { id: 2, message: "This is my first post", LikesCount: "10" },
+        { id: 3, message: "DaDa", LikesCount: "10" },
     ],
     profile: null,
     status: "",
@@ -66,7 +66,7 @@ export const profileReducer = (state: ProfileType = initialState, action: Action
             };
         }
         case SET_USERS_PROFILE: {
-            return {...state, profile: action.profile};
+            return { ...state, profile: action.profile };
         }
         default:
             return state;

@@ -1,10 +1,9 @@
 import React from 'react';
 import s from "./SIdebarFriends.module.css";
-import {NavLink} from "react-router-dom";
-import {AppRootStateType} from "../../Redux/redax-store";
-import {useSelector} from "react-redux";
-import {ProfileType} from "../../Redux/Profile-reducer";
-import {SideType} from "../../Redux/sidebar-reducer";
+import { NavLink } from "react-router-dom";
+import { AppRootStateType } from "../../Redux/redax-store";
+import { useSelector } from "react-redux";
+import { SideType } from "../../Redux/sidebar-reducer";
 
 
 type SideBarFriendsType = {}
@@ -20,7 +19,7 @@ const FriendsItem = (props: any) => {
 
 export const SideBarFriends = () => {
     const profilePage = useSelector<AppRootStateType, SideType>(state => state.sidebarReducer)
-    const bigFriends = profilePage.SideBar.map(s => <FriendsItem name={s.name} id={s.id}/>)
+    const bigFriends = profilePage.SideBar.map(s => <FriendsItem name={s.name} id={s.id} />)
     return (
         <nav className={s.sideBar}>
 

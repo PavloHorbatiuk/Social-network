@@ -1,34 +1,23 @@
 import React from 'react';
 import {Header} from "./Header";
-import axios from "axios";
-import {AuthType, getUserData, LogOut, setUserDataAC} from "../../Redux/Auth-reducer";
+import {AuthType, getUserData, LogOut} from "../../Redux/Auth-reducer";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../Redux/redax-store";
-import {Logout} from "@mui/icons-material";
-
-
-;
 
 
 type maDispatchType = {
-    // setUserDataAC: (id: null,
-    //                 email: null,
-    //                 login: null) => void
-    getUserData:()=>void
-    LogOut:()=>void
-
+    getUserData: () => void
+    LogOut: () => void
 };
 type mapStateToPropsType = {
     isAuth: boolean,
     Login: null | string
-
 }
 export type HeaderContainerType = maDispatchType & mapStateToPropsType
 
 class HeaderContainer extends React.Component<HeaderContainerType, AuthType> {
     componentDidMount() {
-
-        this.props.getUserData()
+        // this.props.getUserData()
     }
 
     render() {
@@ -38,14 +27,6 @@ class HeaderContainer extends React.Component<HeaderContainerType, AuthType> {
     }
 }
 
-// let mapDispatchToProps = (dispatch: Dispatch): maDispatchType => {
-//     return {
-//         setUserDataAC: (id, email, login) => {
-//             dispatch(setUserDataAC(id, email, login))
-//         }
-//     }
-//     }
-// }
 
 let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     return {
@@ -55,4 +36,4 @@ let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
 }
 
 
-export default connect(mapStateToProps,{getUserData,LogOut} )(HeaderContainer)
+export default connect(mapStateToProps, {getUserData, LogOut})(HeaderContainer)

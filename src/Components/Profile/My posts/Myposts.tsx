@@ -1,13 +1,13 @@
 import React from "react";
-import {Posts} from "./Posts/Posts";
+import { Posts } from "./Posts/Posts";
 import s from "./MyPosts.module.css";
-import {Button} from "@mui/material";
-import {AppRootStateType} from "../../../Redux/redax-store";
-import {ProfileType} from "../../../Redux/Profile-reducer";
-import {useSelector} from "react-redux";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxLengthCreator, required} from "../../utils/validators";
-import {Textarea} from "../../Common/FormsControl/FormsControls";
+import { Button } from "@mui/material";
+import { AppRootStateType } from "../../../Redux/redax-store";
+import { ProfileType } from "../../../Redux/Profile-reducer";
+import { useSelector } from "react-redux";
+import { Field, InjectedFormProps, reduxForm } from "redux-form";
+import { maxLengthCreator, required } from "../../utils/validators";
+import { Textarea } from "../../Common/FormsControl/FormsControls";
 
 type AddPostFormType = {
     myPosts: string;
@@ -25,7 +25,7 @@ export const MyPosts = (props: MyPostsType) => {
         (state) => state.profileReducer
     );
     let postsElement = profilePage.MyPostsData.map((m) => (
-        <Posts message={m.message} LikesCount={m.LikesCount}/>
+        <Posts message={m.message} LikesCount={m.LikesCount} />
     ));
 
     const addPost = (inputData: AddPostFormType) => {
@@ -34,7 +34,7 @@ export const MyPosts = (props: MyPostsType) => {
     return (
         <div className={s.posts}>
             <div>{postsElement}</div>
-            <AddPostFormRedux onSubmit={addPost}/>
+            <AddPostFormRedux onSubmit={addPost} />
         </div>
     );
 };
