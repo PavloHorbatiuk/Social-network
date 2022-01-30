@@ -1,6 +1,6 @@
 import React from 'react';
-import {connect} from "react-redux";
-import {AppRootStateType} from "../Redux/redax-store";
+import { connect } from "react-redux";
+import { AppRootStateType } from "../Redux/redax-store";
 import {
     followACSuccess,
     FollowingType, getUsersThunkCreator,
@@ -9,9 +9,17 @@ import {
 import axios from "axios";
 import Users from "./Users";
 import Preloader from "../Components/Common/Preloader/Preloader.sx";
-import {Action, compose} from "redux";
-import {ThunkDispatch} from "redux-thunk";
-import {withAuthRedirect} from "../hoc/withAuthRedirect";
+import { Action, compose } from "redux";
+import { ThunkDispatch } from "redux-thunk";
+import { withAuthRedirect } from "../hoc/withAuthRedirect";
+import {
+    getCurrentPage,
+    getFolliwingInPorgress,
+    getIsFetching,
+    getPageSize,
+    getTOtalUsersCount,
+    getUsers
+} from "../Redux/users-selectors";
 
 
 type mapStateToPropsType = {
@@ -44,7 +52,7 @@ class UsersContainer extends React.Component<UsersPropsType, InitialStateType> {
     render() {
 
         return <>
-            {this.props.isFetching ? <Preloader/> : null}
+            {this.props.isFetching ? <Preloader /> : null}
             <Users
                 onPageChanged={this.onPageChanged}
                 totalUsersCount={this.props.totalUserCount}
@@ -62,12 +70,12 @@ class UsersContainer extends React.Component<UsersPropsType, InitialStateType> {
 
 const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     return {
-        usersPage: state.users,
-        pageSize: state.users.pageSize,
-        totalUserCount: state.users.totalUserCount,
-        currentPage: state.users.currentPage,
-        isFetching: state.users.isFetching,
-        followingInProgres: state.users.followingInProgres,
+        usersPage: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUserCount: getTOtalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgres: getFolliwingInPorgress(state),
     }
 }
 

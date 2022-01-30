@@ -17,7 +17,7 @@ type mapStateToPropsType = {
     profile: null | getAxiosProfileType
     status: string
     AuthorizedUserId: number
-    isAuth:boolean
+    isAuth: boolean
     // updateStatus:string
 }
 type mapDispatchToPropsType = {
@@ -37,7 +37,7 @@ class ProfileContainer extends React.Component<ProfileContainerType, ProfileType
         let userId = this.props.match.params.userId;
         if (!userId) {
             userId = String(this.props.AuthorizedUserId);
-            if(!userId){
+            if (!userId) {
                 this.props.history.push('/login')
             }
         }
